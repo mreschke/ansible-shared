@@ -1,0 +1,10 @@
+# Copy scripts to /usr/local/bin
+- name: Copying scripts to /usr/local/bin
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: toor
+    group: staff
+    mode: 0775
+  with_fileglob:
+    - bin/*
