@@ -1,0 +1,970 @@
+-- MySQL dump 10.16  Distrib 10.1.26-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: opennebula
+-- ------------------------------------------------------
+-- Server version	10.1.26-MariaDB-0+deb9u1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `acl`
+--
+
+DROP TABLE IF EXISTS `acl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `acl` (
+  `oid` int(11) NOT NULL,
+  `user` bigint(20) DEFAULT NULL,
+  `resource` bigint(20) DEFAULT NULL,
+  `rights` bigint(20) DEFAULT NULL,
+  `zone` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `user` (`user`,`resource`,`rights`,`zone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `acl`
+--
+
+LOCK TABLES `acl` WRITE;
+/*!40000 ALTER TABLE `acl` DISABLE KEYS */;
+INSERT INTO `acl` VALUES (3,8589934593,154618822656,2,4294967296),(4,8589934593,17884243820544,1,4294967296),(0,8589934593,9361877654044672,8,17179869184),(1,17179869184,140754668224512,1,17179869184),(2,17179869184,6755416620924928,1,17179869184);
+/*!40000 ALTER TABLE `acl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cluster_datastore_relation`
+--
+
+DROP TABLE IF EXISTS `cluster_datastore_relation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cluster_datastore_relation` (
+  `cid` int(11) NOT NULL,
+  `oid` int(11) NOT NULL,
+  PRIMARY KEY (`cid`,`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cluster_datastore_relation`
+--
+
+LOCK TABLES `cluster_datastore_relation` WRITE;
+/*!40000 ALTER TABLE `cluster_datastore_relation` DISABLE KEYS */;
+INSERT INTO `cluster_datastore_relation` VALUES (0,0),(0,1),(0,2);
+/*!40000 ALTER TABLE `cluster_datastore_relation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cluster_network_relation`
+--
+
+DROP TABLE IF EXISTS `cluster_network_relation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cluster_network_relation` (
+  `cid` int(11) NOT NULL,
+  `oid` int(11) NOT NULL,
+  PRIMARY KEY (`cid`,`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cluster_network_relation`
+--
+
+LOCK TABLES `cluster_network_relation` WRITE;
+/*!40000 ALTER TABLE `cluster_network_relation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cluster_network_relation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cluster_pool`
+--
+
+DROP TABLE IF EXISTS `cluster_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cluster_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cluster_pool`
+--
+
+LOCK TABLES `cluster_pool` WRITE;
+/*!40000 ALTER TABLE `cluster_pool` DISABLE KEYS */;
+INSERT INTO `cluster_pool` VALUES (0,'default','<CLUSTER><ID>0</ID><NAME>default</NAME><HOSTS></HOSTS><DATASTORES><ID>0</ID><ID>1</ID><ID>2</ID></DATASTORES><VNETS></VNETS><TEMPLATE><RESERVED_CPU><![CDATA[]]></RESERVED_CPU><RESERVED_MEM><![CDATA[]]></RESERVED_MEM></TEMPLATE></CLUSTER>',0,0,1,0,0);
+/*!40000 ALTER TABLE `cluster_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cluster_vnc_bitmap`
+--
+
+DROP TABLE IF EXISTS `cluster_vnc_bitmap`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cluster_vnc_bitmap` (
+  `id` int(11) NOT NULL,
+  `map` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cluster_vnc_bitmap`
+--
+
+LOCK TABLES `cluster_vnc_bitmap` WRITE;
+/*!40000 ALTER TABLE `cluster_vnc_bitmap` DISABLE KEYS */;
+INSERT INTO `cluster_vnc_bitmap` VALUES (0,'eJztwYEAAAAAgCCl/ekWqQoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABqFo8C0Q==');
+/*!40000 ALTER TABLE `cluster_vnc_bitmap` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `datastore_pool`
+--
+
+DROP TABLE IF EXISTS `datastore_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `datastore_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `datastore_pool`
+--
+
+LOCK TABLES `datastore_pool` WRITE;
+/*!40000 ALTER TABLE `datastore_pool` DISABLE KEYS */;
+INSERT INTO `datastore_pool` VALUES (0,'system','<DATASTORE><ID>0</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><NAME>system</NAME><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>0</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><DS_MAD><![CDATA[-]]></DS_MAD><TM_MAD><![CDATA[ssh]]></TM_MAD><BASE_PATH><![CDATA[/var/lib/one//datastores/0]]></BASE_PATH><TYPE>1</TYPE><DISK_TYPE>0</DISK_TYPE><STATE>0</STATE><CLUSTERS><ID>0</ID></CLUSTERS><TOTAL_MB>0</TOTAL_MB><FREE_MB>0</FREE_MB><USED_MB>0</USED_MB><IMAGES></IMAGES><TEMPLATE><ALLOW_ORPHANS><![CDATA[NO]]></ALLOW_ORPHANS><DISK_TYPE><![CDATA[FILE]]></DISK_TYPE><DS_MIGRATE><![CDATA[YES]]></DS_MIGRATE><RESTRICTED_DIRS><![CDATA[/]]></RESTRICTED_DIRS><SAFE_DIRS><![CDATA[/var/tmp]]></SAFE_DIRS><SHARED><![CDATA[NO]]></SHARED><TM_MAD><![CDATA[ssh]]></TM_MAD><TYPE><![CDATA[SYSTEM_DS]]></TYPE></TEMPLATE></DATASTORE>',0,0,1,1,0),(1,'default','<DATASTORE><ID>1</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><NAME>default</NAME><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>0</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><DS_MAD><![CDATA[fs]]></DS_MAD><TM_MAD><![CDATA[ssh]]></TM_MAD><BASE_PATH><![CDATA[/var/lib/one//datastores/1]]></BASE_PATH><TYPE>0</TYPE><DISK_TYPE>0</DISK_TYPE><STATE>0</STATE><CLUSTERS><ID>0</ID></CLUSTERS><TOTAL_MB>29909</TOTAL_MB><FREE_MB>24864</FREE_MB><USED_MB>3504</USED_MB><IMAGES></IMAGES><TEMPLATE><ALLOW_ORPHANS><![CDATA[NO]]></ALLOW_ORPHANS><CLONE_TARGET><![CDATA[SYSTEM]]></CLONE_TARGET><DISK_TYPE><![CDATA[FILE]]></DISK_TYPE><DS_MAD><![CDATA[fs]]></DS_MAD><LN_TARGET><![CDATA[SYSTEM]]></LN_TARGET><RESTRICTED_DIRS><![CDATA[/]]></RESTRICTED_DIRS><SAFE_DIRS><![CDATA[/var/tmp]]></SAFE_DIRS><TM_MAD><![CDATA[ssh]]></TM_MAD><TYPE><![CDATA[IMAGE_DS]]></TYPE></TEMPLATE></DATASTORE>',0,0,1,1,0),(2,'files','<DATASTORE><ID>2</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><NAME>files</NAME><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>0</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><DS_MAD><![CDATA[fs]]></DS_MAD><TM_MAD><![CDATA[ssh]]></TM_MAD><BASE_PATH><![CDATA[/var/lib/one//datastores/2]]></BASE_PATH><TYPE>2</TYPE><DISK_TYPE>0</DISK_TYPE><STATE>0</STATE><CLUSTERS><ID>0</ID></CLUSTERS><TOTAL_MB>29909</TOTAL_MB><FREE_MB>24864</FREE_MB><USED_MB>3504</USED_MB><IMAGES></IMAGES><TEMPLATE><ALLOW_ORPHANS><![CDATA[NO]]></ALLOW_ORPHANS><CLONE_TARGET><![CDATA[SYSTEM]]></CLONE_TARGET><DS_MAD><![CDATA[fs]]></DS_MAD><LN_TARGET><![CDATA[SYSTEM]]></LN_TARGET><RESTRICTED_DIRS><![CDATA[/]]></RESTRICTED_DIRS><SAFE_DIRS><![CDATA[/var/tmp]]></SAFE_DIRS><TM_MAD><![CDATA[ssh]]></TM_MAD><TYPE><![CDATA[FILE_DS]]></TYPE></TEMPLATE></DATASTORE>',0,0,1,1,0);
+/*!40000 ALTER TABLE `datastore_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `db_versioning`
+--
+
+DROP TABLE IF EXISTS `db_versioning`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `db_versioning` (
+  `oid` int(11) NOT NULL,
+  `version` varchar(256) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `comment` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `db_versioning`
+--
+
+LOCK TABLES `db_versioning` WRITE;
+/*!40000 ALTER TABLE `db_versioning` DISABLE KEYS */;
+INSERT INTO `db_versioning` VALUES (0,'5.4.1',1516659880,'OpenNebula 5.4.1 daemon bootstrap');
+/*!40000 ALTER TABLE `db_versioning` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `document_pool`
+--
+
+DROP TABLE IF EXISTS `document_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `document_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `type` int(11) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `document_pool`
+--
+
+LOCK TABLES `document_pool` WRITE;
+/*!40000 ALTER TABLE `document_pool` DISABLE KEYS */;
+/*!40000 ALTER TABLE `document_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_pool`
+--
+
+DROP TABLE IF EXISTS `group_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_pool`
+--
+
+LOCK TABLES `group_pool` WRITE;
+/*!40000 ALTER TABLE `group_pool` DISABLE KEYS */;
+INSERT INTO `group_pool` VALUES (0,'oneadmin','<GROUP><ID>0</ID><NAME>oneadmin</NAME><TEMPLATE></TEMPLATE><USERS><ID>0</ID><ID>1</ID></USERS><ADMINS></ADMINS></GROUP>',0,0,1,1,0),(1,'users','<GROUP><ID>1</ID><NAME>users</NAME><TEMPLATE><SUNSTONE><DEFAULT_VIEW><![CDATA[cloud]]></DEFAULT_VIEW><GROUP_ADMIN_DEFAULT_VIEW><![CDATA[groupadmin]]></GROUP_ADMIN_DEFAULT_VIEW><GROUP_ADMIN_VIEWS><![CDATA[groupadmin,cloud]]></GROUP_ADMIN_VIEWS><VIEWS><![CDATA[cloud]]></VIEWS></SUNSTONE></TEMPLATE><USERS></USERS><ADMINS></ADMINS></GROUP>',0,1,1,1,0);
+/*!40000 ALTER TABLE `group_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_quotas`
+--
+
+DROP TABLE IF EXISTS `group_quotas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_quotas` (
+  `group_oid` int(11) NOT NULL,
+  `body` mediumtext,
+  PRIMARY KEY (`group_oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_quotas`
+--
+
+LOCK TABLES `group_quotas` WRITE;
+/*!40000 ALTER TABLE `group_quotas` DISABLE KEYS */;
+INSERT INTO `group_quotas` VALUES (0,'<QUOTAS><ID>0</ID><DATASTORE_QUOTA></DATASTORE_QUOTA><NETWORK_QUOTA></NETWORK_QUOTA><VM_QUOTA></VM_QUOTA><IMAGE_QUOTA></IMAGE_QUOTA></QUOTAS>'),(1,'<QUOTAS><ID>1</ID><DATASTORE_QUOTA></DATASTORE_QUOTA><NETWORK_QUOTA></NETWORK_QUOTA><VM_QUOTA></VM_QUOTA><IMAGE_QUOTA></IMAGE_QUOTA></QUOTAS>');
+/*!40000 ALTER TABLE `group_quotas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `history`
+--
+
+DROP TABLE IF EXISTS `history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `history` (
+  `vid` int(11) NOT NULL,
+  `seq` int(11) NOT NULL,
+  `body` mediumtext,
+  `stime` int(11) DEFAULT NULL,
+  `etime` int(11) DEFAULT NULL,
+  PRIMARY KEY (`vid`,`seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `history`
+--
+
+LOCK TABLES `history` WRITE;
+/*!40000 ALTER TABLE `history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `host_monitoring`
+--
+
+DROP TABLE IF EXISTS `host_monitoring`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `host_monitoring` (
+  `hid` int(11) NOT NULL,
+  `last_mon_time` int(11) NOT NULL,
+  `body` mediumtext,
+  PRIMARY KEY (`hid`,`last_mon_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `host_monitoring`
+--
+
+LOCK TABLES `host_monitoring` WRITE;
+/*!40000 ALTER TABLE `host_monitoring` DISABLE KEYS */;
+/*!40000 ALTER TABLE `host_monitoring` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `host_pool`
+--
+
+DROP TABLE IF EXISTS `host_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `host_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `state` int(11) DEFAULT NULL,
+  `last_mon_time` int(11) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  `cid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `host_pool`
+--
+
+LOCK TABLES `host_pool` WRITE;
+/*!40000 ALTER TABLE `host_pool` DISABLE KEYS */;
+/*!40000 ALTER TABLE `host_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `image_pool`
+--
+
+DROP TABLE IF EXISTS `image_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `image_pool`
+--
+
+LOCK TABLES `image_pool` WRITE;
+/*!40000 ALTER TABLE `image_pool` DISABLE KEYS */;
+/*!40000 ALTER TABLE `image_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `local_db_versioning`
+--
+
+DROP TABLE IF EXISTS `local_db_versioning`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `local_db_versioning` (
+  `oid` int(11) NOT NULL,
+  `version` varchar(256) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `comment` varchar(256) DEFAULT NULL,
+  `is_slave` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `local_db_versioning`
+--
+
+LOCK TABLES `local_db_versioning` WRITE;
+/*!40000 ALTER TABLE `local_db_versioning` DISABLE KEYS */;
+INSERT INTO `local_db_versioning` VALUES (0,'5.4.1',1516659876,'OpenNebula 5.4.1 daemon bootstrap',0);
+/*!40000 ALTER TABLE `local_db_versioning` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `logdb`
+--
+
+DROP TABLE IF EXISTS `logdb`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `logdb` (
+  `log_index` int(11) NOT NULL,
+  `term` int(11) DEFAULT NULL,
+  `sqlcmd` mediumtext,
+  `timestamp` int(11) DEFAULT NULL,
+  `fed_index` int(11) DEFAULT NULL,
+  PRIMARY KEY (`log_index`),
+  KEY `fed_index_idx` (`fed_index`),
+  KEY `timestamp_idx` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `logdb`
+--
+
+LOCK TABLES `logdb` WRITE;
+/*!40000 ALTER TABLE `logdb` DISABLE KEYS */;
+INSERT INTO `logdb` VALUES (-1,-1,'<TEMPLATE><TERM><![CDATA[0]]></TERM><VOTEDFOR><![CDATA[-1]]></VOTEDFOR></TEMPLATE>',0,-1),(0,0,'eJwzNDU0MzO1tDAzBwALTwIX',1516659867,-1);
+/*!40000 ALTER TABLE `logdb` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `marketplace_pool`
+--
+
+DROP TABLE IF EXISTS `marketplace_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `marketplace_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `marketplace_pool`
+--
+
+LOCK TABLES `marketplace_pool` WRITE;
+/*!40000 ALTER TABLE `marketplace_pool` DISABLE KEYS */;
+INSERT INTO `marketplace_pool` VALUES (0,'OpenNebula Public','<MARKETPLACE><ID>0</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><NAME>OpenNebula Public</NAME><MARKET_MAD><![CDATA[one]]></MARKET_MAD><ZONE_ID><![CDATA[0]]></ZONE_ID><TOTAL_MB>0</TOTAL_MB><FREE_MB>0</FREE_MB><USED_MB>0</USED_MB><MARKETPLACEAPPS><ID>0</ID><ID>1</ID><ID>2</ID><ID>3</ID><ID>4</ID><ID>5</ID><ID>6</ID><ID>7</ID><ID>8</ID><ID>9</ID><ID>10</ID><ID>11</ID><ID>12</ID><ID>13</ID><ID>14</ID><ID>15</ID><ID>16</ID><ID>17</ID><ID>18</ID><ID>19</ID><ID>20</ID><ID>21</ID><ID>22</ID><ID>23</ID><ID>24</ID></MARKETPLACEAPPS><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>1</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><DESCRIPTION><![CDATA[OpenNebula Systems MarketPlace]]></DESCRIPTION><MARKET_MAD><![CDATA[one]]></MARKET_MAD></TEMPLATE></MARKETPLACE>',0,0,1,1,1);
+/*!40000 ALTER TABLE `marketplace_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `marketplaceapp_pool`
+--
+
+DROP TABLE IF EXISTS `marketplaceapp_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `marketplaceapp_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `marketplaceapp_pool`
+--
+
+LOCK TABLES `marketplaceapp_pool` WRITE;
+/*!40000 ALTER TABLE `marketplaceapp_pool` DISABLE KEYS */;
+INSERT INTO `marketplaceapp_pool` VALUES (0,'Vrouter Load Balancer Alpine - KVM','<MARKETPLACEAPP><ID>0</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1485773382</REGTIME><NAME>Vrouter Load Balancer Alpine - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/5a435f05-412d-4fc9-930a-0e6295760a78/download/0]]></SOURCE><MD5><![CDATA[32f1f9344db2123e057cbfcc5f4e4ce8]]></MD5><SIZE>8192</SIZE><DESCRIPTION><![CDATA[Vrouter with load balancing support based on Alpine linux 3.5]]></DESCRIPTION><VERSION><![CDATA[1.0.1]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Vrouter with load balancing support based on Alpine linux 3.5]]></DESCRIPTION><IMPORT_ID><![CDATA[5a435f05-412d-4fc9-930a-0e6295760a78]]></IMPORT_ID><PUBLISHER><![CDATA[FELDSAM s.r.o.]]></PUBLISHER><TAGS><![CDATA[vrouter, loadbalancer, alpine]]></TAGS><VERSION><![CDATA[1.0.1]]></VERSION><VMTEMPLATE64><![CDATA[Q1BVID0gIjEuMCIKTUVNT1JZID0gIjEyOCIKVkNQVSA9ICIxIgpDT05URVhUID0gWyBORVRXT1JLICA9InllcyIsU1NIX1BVQkxJQ19LRVkgID0iJFVTRVJbU1NIX1BVQkxJQ19LRVldIixFVEgwX1ZST1VURVJfR0FURVdBWSAgPSJ5ZXMiXQoKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpOSUNfREVGQVVMVCA9IFsgTU9ERUwgID0idmlydGlvIl0KClZST1VURVIgPSAieWVzIg==]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(1,'Fedora 27 - KVM','<MARKETPLACEAPP><ID>1</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1515059845</REGTIME><NAME>Fedora 27 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/7cef7ee9-8c85-4c6f-8dd2-de7a04939a62/download/0]]></SOURCE><MD5><![CDATA[d60e892ff5fa5e26e08c6c415731eb89]]></MD5><SIZE>4096</SIZE><DESCRIPTION><![CDATA[Fedora 27 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Fedora 27 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[7cef7ee9-8c85-4c6f-8dd2-de7a04939a62]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[fedora]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvZmVkb3JhLnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(2,'Alpine Linux 3.6 - KVM','<MARKETPLACEAPP><ID>2</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1515056284</REGTIME><NAME>Alpine Linux 3.6 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/f5d1d25c-cde6-4af0-a6cb-e15496bafacb/download/0]]></SOURCE><MD5><![CDATA[a4fe30f8cc207ffab7efbfa4d7a91ca7]]></MD5><SIZE>10240</SIZE><DESCRIPTION><![CDATA[Alpine Linux 3.6 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Alpine Linux 3.6 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[f5d1d25c-cde6-4af0-a6cb-e15496bafacb]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[alpine]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiMTI4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvbGludXgucG5nIg==]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(3,'Ubuntu 16.04 - EC2','<MARKETPLACEAPP><ID>3</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1515065188</REGTIME><NAME>Ubuntu 16.04 - EC2</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/0e3f72b6-fb7e-4353-a9da-46b5ae884be9/download/0]]></SOURCE><MD5><![CDATA[0f343b0931126a20f133d67c2b018a3b]]></MD5><SIZE>0</SIZE><DESCRIPTION><![CDATA[Ubuntu 16.04 image for Amazon EC2]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[ami]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0iaGQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0iaGQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Ubuntu 16.04 image for Amazon EC2]]></DESCRIPTION><IMPORT_ID><![CDATA[0e3f72b6-fb7e-4353-a9da-46b5ae884be9]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[ubuntu]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgU1NIX1BVQkxJQ19LRVkgID0iJFVTRVJbU1NIX1BVQkxJQ19LRVldIl0KCkNQVSA9ICIwLjEiCk1FTU9SWSA9ICIyNTYiCklOUFVUU19PUkRFUiA9ICJFQzJfSU5TVEFOQ0VUWVBFLEVDMl9TRUNVUklUWUdST1VQSURTLEVDMl9TVUJORVRJRCIKUFVCTElDX0NMT1VEID0gWyBBTUkgID0iYW1pLWVhY2Q5ODkwIixJTlNUQU5DRVRZUEUgID0iJEVDMl9JTlNUQU5DRVRZUEUiLFNFQ1VSSVRZR1JPVVBJRFMgID0iJEVDMl9TRUNVUklUWUdST1VQSURTIixTVUJORVRJRCAgPSIkRUMyX1NVQk5FVElEIixUWVBFICA9ImVjMiJdCgpTQ0hFRF9SRVFVSVJFTUVOVFMgPSAiKFBVQkxJQ19DTE9VRD1ZRVMpICYgKFJFR0lPTl9OQU1FPVwidXMtZWFzdC0xXCIpIgpVU0VSX0lOUFVUUyA9IFsgRUMyX0lOU1RBTkNFVFlQRSAgPSJNfHRleHR8RUMyIEluc3RhbmNlIFR5cGUiLEVDMl9TRUNVUklUWUdST1VQSURTICA9Ik18dGV4dHxFQzIgU2VjdXJpdHkgR3JvdXAgSURzIixFQzJfU1VCTkVUSUQgID0iTXx0ZXh0fEVDMiBTdWJuZXQgSUQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvdWJ1bnR1LnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(4,'Debian 9 - KVM','<MARKETPLACEAPP><ID>4</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1500454066</REGTIME><NAME>Debian 9 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/d329f145-d1aa-40f6-a243-d00bf55abf24/download/0]]></SOURCE><MD5><![CDATA[f5f3bd6da56dcd37af9591aa7f610fb8]]></MD5><SIZE>2048</SIZE><DESCRIPTION><![CDATA[Debian 9 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Debian 9 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[d329f145-d1aa-40f6-a243-d00bf55abf24]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[debian]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvZGViaWFuLnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(5,'Ubuntu 16.04 - KVM','<MARKETPLACEAPP><ID>5</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1465895586</REGTIME><NAME>Ubuntu 16.04 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/575fcaa28fb81d438c000001/download/0]]></SOURCE><MD5><![CDATA[58838d0844dee3b5eb91fc8a95df3823]]></MD5><SIZE>2252</SIZE><DESCRIPTION><![CDATA[Ubuntu 16.04 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Ubuntu 16.04 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[575fcaa28fb81d438c000001]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[ubuntu]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvdWJ1bnR1LnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(6,'alpine-vrouter (KVM)','<MARKETPLACEAPP><ID>6</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1457608289</REGTIME><NAME>alpine-vrouter (KVM)</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/56e156618fb81d0768000001/download/0]]></SOURCE><MD5><![CDATA[d6b4f0aeed3810b6a8e53687607abe0c]]></MD5><SIZE>256</SIZE><DESCRIPTION><![CDATA[Virtual router appliance to be used with OpenNebula 5.x. Based on Alpine linux.]]></DESCRIPTION><VERSION><![CDATA[1.0.5]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Virtual router appliance to be used with OpenNebula 5.x. Based on Alpine linux.]]></DESCRIPTION><IMPORT_ID><![CDATA[56e156618fb81d0768000001]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[vrouter, alpine]]></TAGS><VERSION><![CDATA[1.0.5]]></VERSION><VMTEMPLATE64><![CDATA[Q1BVID0gIjEuMCIKTUVNT1JZID0gIjEyOCIKVkNQVSA9ICIxIgpDT05URVhUID0gWyBORVRXT1JLICA9InllcyIsU1NIX1BVQkxJQ19LRVkgID0iJFVTRVJbU1NIX1BVQkxJQ19LRVldIl0KCkdSQVBISUNTID0gWyBMSVNURU4gID0iMC4wLjAuMCIsVFlQRSAgPSJ2bmMiXQoKTklDX0RFRkFVTFQgPSBbIE1PREVMICA9InZpcnRpbyJdCgpWUk9VVEVSID0gInllcyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(7,'openSUSE 42  - KVM','<MARKETPLACEAPP><ID>7</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1500454066</REGTIME><NAME>openSUSE 42  - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/d98fbbda-a621-4bae-8e82-db13828d3cd2/download/0]]></SOURCE><MD5><![CDATA[198684eec11e784f8137ba67f68e29c5]]></MD5><SIZE>10240</SIZE><DESCRIPTION><![CDATA[openSUSE 42 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[openSUSE 42 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[d98fbbda-a621-4bae-8e82-db13828d3cd2]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[opensuse]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvbGludXgucG5nIg==]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(8,'Ubuntu 17.04 - KVM','<MARKETPLACEAPP><ID>8</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1465895586</REGTIME><NAME>Ubuntu 17.04 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/da91f067-5f1c-4734-b72b-655d1229aa34/download/0]]></SOURCE><MD5><![CDATA[d59dcbcb3e439f93bc6ab56e0b7b5111]]></MD5><SIZE>2252</SIZE><DESCRIPTION><![CDATA[Ubuntu 17.04 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Ubuntu 17.04 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[da91f067-5f1c-4734-b72b-655d1229aa34]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[ubuntu]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvdWJ1bnR1LnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(9,'boot2docker','<MARKETPLACEAPP><ID>9</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1456501637</REGTIME><NAME>boot2docker</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/56d073858fb81d0315000002/download/0]]></SOURCE><MD5><![CDATA[368b9a74e8e95b6670c71b32dd344ff1]]></MD5><SIZE>39</SIZE><DESCRIPTION><![CDATA[Boot2Docker with OpenNebula contextualization.]]></DESCRIPTION><VERSION><![CDATA[1.12.1-1]]></VERSION><FORMAT><![CDATA[raw]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Boot2Docker with OpenNebula contextualization.]]></DESCRIPTION><IMPORT_ID><![CDATA[56d073858fb81d0315000002]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[docker]]></TAGS><VERSION><![CDATA[1.12.1-1]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQo=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(10,'Debian 9 - EC2','<MARKETPLACEAPP><ID>10</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1515065188</REGTIME><NAME>Debian 9 - EC2</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/c7849534-fd74-4751-89d2-3791c1e7cd7a/download/0]]></SOURCE><MD5><![CDATA[0f343b0931126a20f133d67c2b018a3b]]></MD5><SIZE>0</SIZE><DESCRIPTION><![CDATA[Debian 9 image for Amazon EC2]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[ami]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0iaGQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0iaGQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Debian 9 image for Amazon EC2]]></DESCRIPTION><IMPORT_ID><![CDATA[c7849534-fd74-4751-89d2-3791c1e7cd7a]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[debian]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgU1NIX1BVQkxJQ19LRVkgID0iJFVTRVJbU1NIX1BVQkxJQ19LRVldIl0KCkNQVSA9ICIwLjEiCk1FTU9SWSA9ICIyNTYiCklOUFVUU19PUkRFUiA9ICJFQzJfSU5TVEFOQ0VUWVBFLEVDMl9TRUNVUklUWUdST1VQSURTLEVDMl9TVUJORVRJRCIKUFVCTElDX0NMT1VEID0gWyBBTUkgID0iYW1pLTUyYzE5NDI4IixJTlNUQU5DRVRZUEUgID0iJEVDMl9JTlNUQU5DRVRZUEUiLFNFQ1VSSVRZR1JPVVBJRFMgID0iJEVDMl9TRUNVUklUWUdST1VQSURTIixTVUJORVRJRCAgPSIkRUMyX1NVQk5FVElEIixUWVBFICA9ImVjMiJdCgpTQ0hFRF9SRVFVSVJFTUVOVFMgPSAiKFBVQkxJQ19DTE9VRD1ZRVMpICYgKFJFR0lPTl9OQU1FPVwidXMtZWFzdC0xXCIpIgpVU0VSX0lOUFVUUyA9IFsgRUMyX0lOU1RBTkNFVFlQRSAgPSJNfHRleHR8RUMyIEluc3RhbmNlIFR5cGUiLEVDMl9TRUNVUklUWUdST1VQSURTICA9Ik18dGV4dHxFQzIgU2VjdXJpdHkgR3JvdXAgSURzIixFQzJfU1VCTkVUSUQgID0iTXx0ZXh0fEVDMiBTdWJuZXQgSUQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvZGViaWFuLnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(11,'CentOS 6 - KVM','<MARKETPLACEAPP><ID>11</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1407674298</REGTIME><NAME>CentOS 6 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/51a7685d-b9a6-43a4-a160-41ab0f6caa5e/download/0]]></SOURCE><MD5><![CDATA[55b5ea5475454e4b020062dec06f54ed]]></MD5><SIZE>8192</SIZE><DESCRIPTION><![CDATA[CentOS 6 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[CentOS 6 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[51a7685d-b9a6-43a4-a160-41ab0f6caa5e]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[centos]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvY2VudG9zLnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(12,'Debian 8 - KVM','<MARKETPLACEAPP><ID>12</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1443105849</REGTIME><NAME>Debian 8 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/e902e91f-4e83-40af-b41e-b895abf0461d/download/0]]></SOURCE><MD5><![CDATA[39803fefd012befb593d8999ede68e27]]></MD5><SIZE>2048</SIZE><DESCRIPTION><![CDATA[Debian 8 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Debian 8 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[e902e91f-4e83-40af-b41e-b895abf0461d]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[debian]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvZGViaWFuLnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(13,'alpine-vrouter (vcenter)','<MARKETPLACEAPP><ID>13</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1457608461</REGTIME><NAME>alpine-vrouter (vcenter)</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/56e1570d8fb81d0768000002/download/0]]></SOURCE><MD5><![CDATA[198b57682b71480a5231504de85496d4]]></MD5><SIZE>256</SIZE><DESCRIPTION><![CDATA[Virtual router appliance to be used with OpenNebula 5.x. Based on Alpine linux.]]></DESCRIPTION><VERSION><![CDATA[1.0.6]]></VERSION><FORMAT><![CDATA[vmdk]]></FORMAT><APPTEMPLATE64><![CDATA[VFlQRT0iT1MiCg==]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[VFlQRT0iT1MiCg==]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Virtual router appliance to be used with OpenNebula 5.x. Based on Alpine linux.]]></DESCRIPTION><IMPORT_ID><![CDATA[56e1570d8fb81d0768000002]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[vrouter, alpine]]></TAGS><VERSION><![CDATA[1.0.6]]></VERSION></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(14,'Ubuntu for Docker Machine','<MARKETPLACEAPP><ID>14</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1456159688</REGTIME><NAME>Ubuntu for Docker Machine</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/56cb3bc88fb81d0315000001/download/0]]></SOURCE><MD5><![CDATA[3493d7cbaa20143b2ee3ffc3ece73077]]></MD5><SIZE>10240</SIZE><DESCRIPTION><![CDATA[Ubuntu 14.04 LTS with preinstalled packages in order to work with Docker Machine]]></DESCRIPTION><VERSION><![CDATA[0.6.0-2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Ubuntu 14.04 LTS with preinstalled packages in order to work with Docker Machine]]></DESCRIPTION><IMPORT_ID><![CDATA[56cb3bc88fb81d0315000001]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[docker, ubuntu]]></TAGS><VERSION><![CDATA[0.6.0-2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvdWJ1bnR1LnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(15,'Ubuntu 14.04 - KVM','<MARKETPLACEAPP><ID>15</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1407697330</REGTIME><NAME>Ubuntu 14.04 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/53e7c1b28fb81d6a69000003/download/0]]></SOURCE><MD5><![CDATA[baa69c28398985db1b8146d6c1e2de29]]></MD5><SIZE>2252</SIZE><DESCRIPTION><![CDATA[Ubuntu 14.04 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Ubuntu 14.04 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[53e7c1b28fb81d6a69000003]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[ubuntu]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvdWJ1bnR1LnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(16,'CentOS 7 - EC2','<MARKETPLACEAPP><ID>16</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1515065188</REGTIME><NAME>CentOS 7 - EC2</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/3094b094-910b-467b-9205-6aee705d8341/download/0]]></SOURCE><MD5><![CDATA[0f343b0931126a20f133d67c2b018a3b]]></MD5><SIZE>0</SIZE><DESCRIPTION><![CDATA[CentOS 7 image for Amazon EC2]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[ami]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0iaGQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0iaGQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><DESCRIPTION><![CDATA[CentOS 7 image for Amazon EC2]]></DESCRIPTION><IMPORT_ID><![CDATA[3094b094-910b-467b-9205-6aee705d8341]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[centos]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgU1NIX1BVQkxJQ19LRVkgID0iJFVTRVJbU1NIX1BVQkxJQ19LRVldIl0KCkNQVSA9ICIwLjEiCk1FTU9SWSA9ICIyNTYiCklOUFVUU19PUkRFUiA9ICJFQzJfSU5TVEFOQ0VUWVBFLEVDMl9TRUNVUklUWUdST1VQSURTLEVDMl9TVUJORVRJRCIKUFVCTElDX0NMT1VEID0gWyBBTUkgID0iYW1pLWE3YzA5NWRkIixJTlNUQU5DRVRZUEUgID0iJEVDMl9JTlNUQU5DRVRZUEUiLFNFQ1VSSVRZR1JPVVBJRFMgID0iJEVDMl9TRUNVUklUWUdST1VQSURTIixTVUJORVRJRCAgPSIkRUMyX1NVQk5FVElEIixUWVBFICA9ImVjMiJdCgpTQ0hFRF9SRVFVSVJFTUVOVFMgPSAiKFBVQkxJQ19DTE9VRD1ZRVMpICYgKFJFR0lPTl9OQU1FPVwidXMtZWFzdC0xXCIpIgpVU0VSX0lOUFVUUyA9IFsgRUMyX0lOU1RBTkNFVFlQRSAgPSJNfHRleHR8RUMyIEluc3RhbmNlIFR5cGUiLEVDMl9TRUNVUklUWUdST1VQSURTICA9Ik18dGV4dHxFQzIgU2VjdXJpdHkgR3JvdXAgSURzIixFQzJfU1VCTkVUSUQgID0iTXx0ZXh0fEVDMiBTdWJuZXQgSUQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvY2VudG9zLnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(17,'Devuan 1 - KVM','<MARKETPLACEAPP><ID>17</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1500454066</REGTIME><NAME>Devuan 1 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/a5550935-1630-42b3-90a6-5722e26de51b/download/0]]></SOURCE><MD5><![CDATA[934b1a31ad3e2373bc5618b60344113f]]></MD5><SIZE>20479</SIZE><DESCRIPTION><![CDATA[Devuan 1 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Devuan 1 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[a5550935-1630-42b3-90a6-5722e26de51b]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[devuan]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvbGludXgucG5nIg==]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(18,'ttylinux - kvm','<MARKETPLACEAPP><ID>18</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>0</REGTIME><NAME>ttylinux - kvm</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/4fc76a938fb81d3517000003/download/0]]></SOURCE><MD5><![CDATA[b8ccdc63fb9d72ed12547fb1499c8b73]]></MD5><SIZE>200</SIZE><DESCRIPTION><![CDATA[This is a very small image that works with OpenNebula. It\'s already contextualized. The purpose of this image is to test OpenNebula deployments, without wasting network bandwith thanks to the tiny footprint of this image\r\n(23MB).]]></DESCRIPTION><VERSION><![CDATA[1.0]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[This is a very small image that works with OpenNebula. It\'s already contextualized. The purpose of this image is to test OpenNebula deployments, without wasting network bandwith thanks to the tiny footprint of this image\r\n(23MB).]]></DESCRIPTION><IMPORT_ID><![CDATA[4fc76a938fb81d3517000003]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[linux, ttylinux]]></TAGS><VERSION><![CDATA[1.0]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMC4xIgpHUkFQSElDUyA9IFsgTElTVEVOICA9IjAuMC4wLjAiLFRZUEUgID0idm5jIl0KCk1FTU9SWSA9ICIxMjgiCkxPR08gPSAiaW1hZ2VzL2xvZ29zL2xpbnV4LnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(19,'CentOS 7 - KVM','<MARKETPLACEAPP><ID>19</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1407696786</REGTIME><NAME>CentOS 7 - KVM</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/4e3b2788-d174-4151-b026-94bb0b987cbb/download/0]]></SOURCE><MD5><![CDATA[0c2cd6b8a169f36950ef508866c1dcb6]]></MD5><SIZE>8192</SIZE><DESCRIPTION><![CDATA[CentOS 7 image for KVM hosts]]></DESCRIPTION><VERSION><![CDATA[5.4.2]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[CentOS 7 image for KVM hosts]]></DESCRIPTION><IMPORT_ID><![CDATA[4e3b2788-d174-4151-b026-94bb0b987cbb]]></IMPORT_ID><PUBLISHER><![CDATA[OpenNebula Systems]]></PUBLISHER><TAGS><![CDATA[centos]]></TAGS><VERSION><![CDATA[5.4.2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNzY4IgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvY2VudG9zLnBuZyI=]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(20,'Arch Linux','<MARKETPLACEAPP><ID>20</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1426762698</REGTIME><NAME>Arch Linux</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/550aabca8fb81d60be000002/download/0]]></SOURCE><MD5><![CDATA[4b70c8f54ef0b21ce6eb64bbc01074e6]]></MD5><SIZE>10000</SIZE><DESCRIPTION><![CDATA[Arch Linux amd64]]></DESCRIPTION><VERSION><![CDATA[2015-03-01.one]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Arch Linux amd64]]></DESCRIPTION><IMPORT_ID><![CDATA[550aabca8fb81d60be000002]]></IMPORT_ID><PUBLISHER><![CDATA[ungleich GmbH]]></PUBLISHER><TAGS><![CDATA[arch linux]]></TAGS><VERSION><![CDATA[2015-03-01.one]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSIsVEFSR0VUICA9InZkYiJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNTEyIgpPUyA9IFsgQVJDSCAgPSJ4ODZfNjQiXQoKTE9HTyA9ICJpbWFnZXMvbG9nb3MvYXJjaC5wbmci]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(21,'Ubuntu 16.04 - LXD','<MARKETPLACEAPP><ID>21</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1500931500</REGTIME><NAME>Ubuntu 16.04 - LXD</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/7dd50db7-33c4-4b39-940c-f6a55432622f/download/0]]></SOURCE><MD5><![CDATA[876699b33accf39700522252fbfde566]]></MD5><SIZE>1024</SIZE><DESCRIPTION><![CDATA[Ubuntu 16.04 image for the LXDoNe addon. Please read the detailed information.]]></DESCRIPTION><VERSION><![CDATA[2]]></VERSION><FORMAT><![CDATA[raw]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icmF3IgpUWVBFPSJPUyIK]]></APPTEMPLATE64><DESCRIPTION><![CDATA[Ubuntu 16.04 image for the LXDoNe addon. Please read the detailed information.]]></DESCRIPTION><IMPORT_ID><![CDATA[7dd50db7-33c4-4b39-940c-f6a55432622f]]></IMPORT_ID><PUBLISHER><![CDATA[LXDoNe Team]]></PUBLISHER><TAGS><![CDATA[Ubuntu, LXD, LXDoNe]]></TAGS><VERSION><![CDATA[2]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSJdCgpDUFUgPSAiMSIKR1JBUEhJQ1MgPSBbIExJU1RFTiAgPSIwLjAuMC4wIixUWVBFICA9InZuYyJdCgpNRU1PUlkgPSAiNTEyIgpMT0dPID0gImltYWdlcy9sb2dvcy91YnVudHUucG5nIg==]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(22,'CoreOS alpha','<MARKETPLACEAPP><ID>22</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1459704192</REGTIME><NAME>CoreOS alpha</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/570151808fb81d0d6f000002/download/0]]></SOURCE><MD5><![CDATA[d5a3648092f19f3bd0e4ef9628389520]]></MD5><SIZE>10240</SIZE><DESCRIPTION><![CDATA[CoreOS alpha image for KVM hosts under OpenNebula.]]></DESCRIPTION><VERSION><![CDATA[1000.0.0]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[RFJJVkVSPSJxY293MiIKVFlQRT0iT1MiCg==]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[RFJJVkVSPSJxY293MiIKVFlQRT0iT1MiCg==]]></APPTEMPLATE64><DESCRIPTION><![CDATA[CoreOS alpha image for KVM hosts under OpenNebula.]]></DESCRIPTION><IMPORT_ID><![CDATA[570151808fb81d0d6f000002]]></IMPORT_ID><PUBLISHER><![CDATA[Carlos Valiente]]></PUBLISHER><TAGS><![CDATA[coreos]]></TAGS><VERSION><![CDATA[1000.0.0]]></VERSION><VMTEMPLATE64><![CDATA[VVNFUl9JTlBVVFMgPSBbIFVTRVJfREFUQSAgPSJNfHRleHR8VXNlciBkYXRhIGZvciBgY2xvdWQtY29uZmlnYCJdCgpHUkFQSElDUyA9IFsgVFlQRSAgPSJ2bmMiLExJU1RFTiAgPSIwLjAuMC4wIl0KCkNPTlRFWFQgPSBbIFNFVF9IT1NUTkFNRSAgPSIkTkFNRSIsU1NIX1BVQkxJQ19LRVkgID0iJFVTRVJbU1NIX1BVQkxJQ19LRVldIixORVRXT1JLICA9IllFUyIsVVNFUl9EQVRBICA9IiRVU0VSX0RBVEEiXQoKTUVNT1JZID0gIjUxMiIKT1MgPSBbIEFSQ0ggID0ieDg2XzY0Il0KCkNQVSA9ICIxIg==]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(23,'FreeBSD 10.3','<MARKETPLACEAPP><ID>23</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1486408847</REGTIME><NAME>FreeBSD 10.3</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/ebb81aaf-0552-47c1-9579-723cc84b8e74/download/0]]></SOURCE><MD5><![CDATA[8a49f2dac4ae37e25b366716d3a9c4cf]]></MD5><SIZE>20480</SIZE><DESCRIPTION><![CDATA[FreeBSD 10.3 with contextualization]]></DESCRIPTION><VERSION><![CDATA[1.0]]></VERSION><FORMAT><![CDATA[qcow2]]></FORMAT><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[REVWX1BSRUZJWD0idmQiCkRSSVZFUj0icWNvdzIiClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[FreeBSD 10.3 with contextualization]]></DESCRIPTION><IMPORT_ID><![CDATA[ebb81aaf-0552-47c1-9579-723cc84b8e74]]></IMPORT_ID><PUBLISHER><![CDATA[Trivago GmbH]]></PUBLISHER><TAGS><![CDATA[freebsd]]></TAGS><VERSION><![CDATA[1.0]]></VERSION><VMTEMPLATE64><![CDATA[Q09OVEVYVCA9IFsgTkVUV09SSyAgPSJZRVMiLFNTSF9QVUJMSUNfS0VZICA9IiRVU0VSW1NTSF9QVUJMSUNfS0VZXSIsU0VUX0hPU1ROQU1FICA9IiROQU1FIl0KCkNQVSA9ICIxIgpHUkFQSElDUyA9IFsgTElTVEVOICA9IjAuMC4wLjAiLFRZUEUgID0idm5jIl0KCk1FTU9SWSA9ICI3NjgiCk9TID0gWyBBUkNIICA9Ing4Nl82NCJdCgpVU0VSX0lOUFVUUyA9IFsgU1NIX1VTRVJfS0VZICA9Ik18dGV4dHxTU0ggS0VZOiBBZGRpdGlvbmFsIHNzaCBrZXkgdG8gYWRkIl0K]]></VMTEMPLATE64></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1),(24,'VyOS 1.1.5 Helium 64 bits','<MARKETPLACEAPP><ID>24</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><REGTIME>1430328100</REGTIME><NAME>VyOS 1.1.5 Helium 64 bits</NAME><ZONE_ID><![CDATA[0]]></ZONE_ID><ORIGIN_ID><![CDATA[-1]]></ORIGIN_ID><SOURCE><![CDATA[http://marketplace.opennebula.systems//appliance/554113248fb81d6a94000001/download/0]]></SOURCE><MD5><![CDATA[aba8765298ffcf8784f8a6d2b267eb79]]></MD5><SIZE>2000</SIZE><DESCRIPTION><![CDATA[This image has been created using VyOS 1.1.5 ISO for 64 bits so you can deploy a virtual router and firewall. \r\n\r\nVyOS is a community fork of Vyatta, a Linux-based network operating system that provides software-based network routing, firewall, and VPN functionality.\r\n\r\nThis image provides a VyOS virtual router/firewall only for KVM. When booting select the first option (KVM).]]></DESCRIPTION><VERSION><![CDATA[1.1.5-1]]></VERSION><FORMAT><![CDATA[raw]]></FORMAT><APPTEMPLATE64><![CDATA[RFJJVkVSPSJyYXciClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><MARKETPLACE_ID>0</MARKETPLACE_ID><MARKETPLACE>OpenNebula Public</MARKETPLACE><STATE>1</STATE><TYPE>1</TYPE><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>0</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><TEMPLATE><APPTEMPLATE64><![CDATA[RFJJVkVSPSJyYXciClRZUEU9Ik9TIgo=]]></APPTEMPLATE64><DESCRIPTION><![CDATA[This image has been created using VyOS 1.1.5 ISO for 64 bits so you can deploy a virtual router and firewall. \r\n\r\nVyOS is a community fork of Vyatta, a Linux-based network operating system that provides software-based network routing, firewall, and VPN functionality.\r\n\r\nThis image provides a VyOS virtual router/firewall only for KVM. When booting select the first option (KVM).]]></DESCRIPTION><IMPORT_ID><![CDATA[554113248fb81d6a94000001]]></IMPORT_ID><PUBLISHER><![CDATA[ArtemIT]]></PUBLISHER><TAGS><![CDATA[router, vyos]]></TAGS><VERSION><![CDATA[1.1.5-1]]></VERSION></TEMPLATE></MARKETPLACEAPP>',0,0,1,1,1);
+/*!40000 ALTER TABLE `marketplaceapp_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `network_pool`
+--
+
+DROP TABLE IF EXISTS `network_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `network_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `network_pool`
+--
+
+LOCK TABLES `network_pool` WRITE;
+/*!40000 ALTER TABLE `network_pool` DISABLE KEYS */;
+/*!40000 ALTER TABLE `network_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `network_vlan_bitmap`
+--
+
+DROP TABLE IF EXISTS `network_vlan_bitmap`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `network_vlan_bitmap` (
+  `id` int(11) NOT NULL,
+  `map` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `network_vlan_bitmap`
+--
+
+LOCK TABLES `network_vlan_bitmap` WRITE;
+/*!40000 ALTER TABLE `network_vlan_bitmap` DISABLE KEYS */;
+INSERT INTO `network_vlan_bitmap` VALUES (0,'eJztwQENAAAAwqBK75/OHg4oAAAA4N0A+B4ALg==');
+/*!40000 ALTER TABLE `network_vlan_bitmap` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pool_control`
+--
+
+DROP TABLE IF EXISTS `pool_control`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pool_control` (
+  `tablename` varchar(32) NOT NULL,
+  `last_oid` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`tablename`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pool_control`
+--
+
+LOCK TABLES `pool_control` WRITE;
+/*!40000 ALTER TABLE `pool_control` DISABLE KEYS */;
+INSERT INTO `pool_control` VALUES ('acl',4),('cluster_pool',99),('datastore_pool',99),('group_pool',99),('marketplaceapp_pool',24),('marketplace_pool',99),('secgroup_pool',99),('user_pool',1),('vdc_pool',99),('zone_pool',99);
+/*!40000 ALTER TABLE `pool_control` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `secgroup_pool`
+--
+
+DROP TABLE IF EXISTS `secgroup_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `secgroup_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `secgroup_pool`
+--
+
+LOCK TABLES `secgroup_pool` WRITE;
+/*!40000 ALTER TABLE `secgroup_pool` DISABLE KEYS */;
+INSERT INTO `secgroup_pool` VALUES (0,'default','<SECURITY_GROUP><ID>0</ID><UID>0</UID><GID>0</GID><UNAME>oneadmin</UNAME><GNAME>oneadmin</GNAME><NAME>default</NAME><PERMISSIONS><OWNER_U>1</OWNER_U><OWNER_M>1</OWNER_M><OWNER_A>1</OWNER_A><GROUP_U>1</GROUP_U><GROUP_M>0</GROUP_M><GROUP_A>0</GROUP_A><OTHER_U>1</OTHER_U><OTHER_M>0</OTHER_M><OTHER_A>0</OTHER_A></PERMISSIONS><UPDATED_VMS></UPDATED_VMS><OUTDATED_VMS></OUTDATED_VMS><UPDATING_VMS></UPDATING_VMS><ERROR_VMS></ERROR_VMS><TEMPLATE><DESCRIPTION><![CDATA[The default security group is added to every network. Use it to add default filter rules for your networks. You may remove this security group from any network by updating its properties.]]></DESCRIPTION><RULE><PROTOCOL><![CDATA[ALL]]></PROTOCOL><RULE_TYPE><![CDATA[OUTBOUND]]></RULE_TYPE></RULE><RULE><PROTOCOL><![CDATA[ALL]]></PROTOCOL><RULE_TYPE><![CDATA[INBOUND]]></RULE_TYPE></RULE></TEMPLATE></SECURITY_GROUP>',0,0,1,1,1);
+/*!40000 ALTER TABLE `secgroup_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `system_attributes`
+--
+
+DROP TABLE IF EXISTS `system_attributes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `system_attributes` (
+  `name` varchar(128) NOT NULL,
+  `body` mediumtext,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `system_attributes`
+--
+
+LOCK TABLES `system_attributes` WRITE;
+/*!40000 ALTER TABLE `system_attributes` DISABLE KEYS */;
+INSERT INTO `system_attributes` VALUES ('DEFAULT_GROUP_QUOTAS','<DEFAULT_GROUP_QUOTAS><DATASTORE_QUOTA></DATASTORE_QUOTA><NETWORK_QUOTA></NETWORK_QUOTA><VM_QUOTA></VM_QUOTA><IMAGE_QUOTA></IMAGE_QUOTA></DEFAULT_GROUP_QUOTAS>'),('DEFAULT_USER_QUOTAS','<DEFAULT_USER_QUOTAS><DATASTORE_QUOTA></DATASTORE_QUOTA><NETWORK_QUOTA></NETWORK_QUOTA><VM_QUOTA></VM_QUOTA><IMAGE_QUOTA></IMAGE_QUOTA></DEFAULT_USER_QUOTAS>');
+/*!40000 ALTER TABLE `system_attributes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `template_pool`
+--
+
+DROP TABLE IF EXISTS `template_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `template_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `template_pool`
+--
+
+LOCK TABLES `template_pool` WRITE;
+/*!40000 ALTER TABLE `template_pool` DISABLE KEYS */;
+/*!40000 ALTER TABLE `template_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_pool`
+--
+
+DROP TABLE IF EXISTS `user_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_pool`
+--
+
+LOCK TABLES `user_pool` WRITE;
+/*!40000 ALTER TABLE `user_pool` DISABLE KEYS */;
+INSERT INTO `user_pool` VALUES (0,'oneadmin','<USER><ID>0</ID><GID>0</GID><GROUPS><ID>0</ID></GROUPS><GNAME>oneadmin</GNAME><NAME>oneadmin</NAME><PASSWORD><![CDATA[89d90c7496cf9345deb5e066a2bf2481439c02ed]]></PASSWORD><AUTH_DRIVER><![CDATA[core]]></AUTH_DRIVER><ENABLED>1</ENABLED><TEMPLATE><TOKEN_PASSWORD><![CDATA[23684f754ea3bc93c4fb7a6f58745572350d6938]]></TOKEN_PASSWORD></TEMPLATE></USER>',0,0,1,0,0),(1,'serveradmin','<USER><ID>1</ID><GID>0</GID><GROUPS><ID>0</ID></GROUPS><GNAME>oneadmin</GNAME><NAME>serveradmin</NAME><PASSWORD><![CDATA[e61c68131bb6358f2c2cba0ca0ed1504db425c64]]></PASSWORD><AUTH_DRIVER><![CDATA[server_cipher]]></AUTH_DRIVER><ENABLED>1</ENABLED><TEMPLATE><TOKEN_PASSWORD><![CDATA[b1150e0d2f08a3e11616296b3b0f1c7a5da07989]]></TOKEN_PASSWORD></TEMPLATE></USER>',1,0,1,0,0);
+/*!40000 ALTER TABLE `user_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_quotas`
+--
+
+DROP TABLE IF EXISTS `user_quotas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_quotas` (
+  `user_oid` int(11) NOT NULL,
+  `body` mediumtext,
+  PRIMARY KEY (`user_oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_quotas`
+--
+
+LOCK TABLES `user_quotas` WRITE;
+/*!40000 ALTER TABLE `user_quotas` DISABLE KEYS */;
+INSERT INTO `user_quotas` VALUES (0,'<QUOTAS><ID>0</ID><DATASTORE_QUOTA></DATASTORE_QUOTA><NETWORK_QUOTA></NETWORK_QUOTA><VM_QUOTA></VM_QUOTA><IMAGE_QUOTA></IMAGE_QUOTA></QUOTAS>'),(1,'<QUOTAS><ID>1</ID><DATASTORE_QUOTA></DATASTORE_QUOTA><NETWORK_QUOTA></NETWORK_QUOTA><VM_QUOTA></VM_QUOTA><IMAGE_QUOTA></IMAGE_QUOTA></QUOTAS>');
+/*!40000 ALTER TABLE `user_quotas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vdc_pool`
+--
+
+DROP TABLE IF EXISTS `vdc_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vdc_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vdc_pool`
+--
+
+LOCK TABLES `vdc_pool` WRITE;
+/*!40000 ALTER TABLE `vdc_pool` DISABLE KEYS */;
+INSERT INTO `vdc_pool` VALUES (0,'default','<VDC><ID>0</ID><NAME>default</NAME><GROUPS><ID>1</ID></GROUPS><CLUSTERS><CLUSTER><ZONE_ID>0</ZONE_ID><CLUSTER_ID>-10</CLUSTER_ID></CLUSTER></CLUSTERS><HOSTS></HOSTS><DATASTORES></DATASTORES><VNETS></VNETS><TEMPLATE><DESCRIPTION><![CDATA[Every new group is added to this VDC. Use it to store default access rules for your groups. NOTE: You may need to remove a group from the default VDC before assigning it to other VDC.]]></DESCRIPTION></TEMPLATE></VDC>',0,0,1,0,0);
+/*!40000 ALTER TABLE `vdc_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vm_import`
+--
+
+DROP TABLE IF EXISTS `vm_import`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vm_import` (
+  `deploy_id` varchar(128) NOT NULL,
+  `vmid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`deploy_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vm_import`
+--
+
+LOCK TABLES `vm_import` WRITE;
+/*!40000 ALTER TABLE `vm_import` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vm_import` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vm_monitoring`
+--
+
+DROP TABLE IF EXISTS `vm_monitoring`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vm_monitoring` (
+  `vmid` int(11) NOT NULL,
+  `last_poll` int(11) NOT NULL,
+  `body` mediumtext,
+  PRIMARY KEY (`vmid`,`last_poll`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vm_monitoring`
+--
+
+LOCK TABLES `vm_monitoring` WRITE;
+/*!40000 ALTER TABLE `vm_monitoring` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vm_monitoring` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vm_pool`
+--
+
+DROP TABLE IF EXISTS `vm_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vm_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `last_poll` int(11) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
+  `lcm_state` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vm_pool`
+--
+
+LOCK TABLES `vm_pool` WRITE;
+/*!40000 ALTER TABLE `vm_pool` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vm_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vm_showback`
+--
+
+DROP TABLE IF EXISTS `vm_showback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vm_showback` (
+  `vmid` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `month` int(11) NOT NULL,
+  `body` mediumtext,
+  PRIMARY KEY (`vmid`,`year`,`month`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vm_showback`
+--
+
+LOCK TABLES `vm_showback` WRITE;
+/*!40000 ALTER TABLE `vm_showback` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vm_showback` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vmgroup_pool`
+--
+
+DROP TABLE IF EXISTS `vmgroup_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vmgroup_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vmgroup_pool`
+--
+
+LOCK TABLES `vmgroup_pool` WRITE;
+/*!40000 ALTER TABLE `vmgroup_pool` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vmgroup_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vrouter_pool`
+--
+
+DROP TABLE IF EXISTS `vrouter_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vrouter_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vrouter_pool`
+--
+
+LOCK TABLES `vrouter_pool` WRITE;
+/*!40000 ALTER TABLE `vrouter_pool` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vrouter_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `zone_pool`
+--
+
+DROP TABLE IF EXISTS `zone_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `zone_pool` (
+  `oid` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `body` mediumtext,
+  `uid` int(11) DEFAULT NULL,
+  `gid` int(11) DEFAULT NULL,
+  `owner_u` int(11) DEFAULT NULL,
+  `group_u` int(11) DEFAULT NULL,
+  `other_u` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `zone_pool`
+--
+
+LOCK TABLES `zone_pool` WRITE;
+/*!40000 ALTER TABLE `zone_pool` DISABLE KEYS */;
+INSERT INTO `zone_pool` VALUES (0,'OpenNebula','<ZONE><ID>0</ID><NAME>OpenNebula</NAME><TEMPLATE><ENDPOINT><![CDATA[http://localhost:2633/RPC2]]></ENDPOINT></TEMPLATE><SERVER_POOL></SERVER_POOL></ZONE>',0,0,1,0,0);
+/*!40000 ALTER TABLE `zone_pool` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-01-22 16:18:50

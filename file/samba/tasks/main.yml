@@ -1,0 +1,7 @@
+---
+# Install Samba Server
+- name: Installing Samba Server
+  apt:
+    update_cache: yes
+    state: present
+    name: samba

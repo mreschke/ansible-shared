@@ -1,0 +1,17 @@
+---
+#Adding Zabbix .deb file
+- name: Install Zabbix .deb package from the internet.
+  apt:
+    deb: https://repo.zabbix.com/zabbix/3.4/debian/pool/main/z/zabbix-release/zabbix-release_3.4-1+stretch_all.deb
+
+# Install Zabbix applications
+- name: Installing Zabbix applications
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - zabbix-server-mysql
+      - zabbix-frontend-php
+      - zabbix-agent
+
+

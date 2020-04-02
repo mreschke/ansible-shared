@@ -1,0 +1,17 @@
+---
+# Add GLUU sources GPG keys
+- name: Addding GLUU sources GPG keys
+  apt_key: url='https://repo.gluu.org/debian/gluu-apt.key' state=present
+
+# Add GLUU repositories - Debian 9 Stretch
+- name: Adding GLUU sources for Debian 9 Stretch
+  apt_repository: repo='deb https://repo.gluu.org/debian/ stretch-stable main' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+# Install GLUU
+- name: Installing GLUU 3.1.6
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - gluu-server-3.1.6.sp1

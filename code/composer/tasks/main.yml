@@ -1,0 +1,13 @@
+---
+# Install Composer
+# All versions of Debian
+- name: Installing PHP Composer
+  command: "{{item}}"
+  with_items:
+    - curl -o install https://getcomposer.org/installer
+    - php install
+    - mv composer.phar /usr/local/bin/composer
+    - rm install
+  args:
+    chdir: /tmp
+    creates: /usr/local/bin/composer

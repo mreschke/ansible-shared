@@ -1,0 +1,10 @@
+---
+# Copy Redis server config file
+- name: Writing /etc/redis/redis.conf
+  copy:
+    src: "files/redis/redis.conf"
+    dest: "/etc/redis/redis.conf"
+    owner: root
+    group: root
+    mode: 0644 # -rw-r--r--
+  notify: restart redis # Only runs if file changed!

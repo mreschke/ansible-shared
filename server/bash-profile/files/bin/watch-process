@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Watch a process output
+# mReschke 2018-01-19
+
+sudo tail -f /proc/$(pgrep $1|head -n1)/fd/1

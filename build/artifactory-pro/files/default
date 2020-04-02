@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#Default values
+export ARTIFACTORY_HOME=/var/opt/jfrog/artifactory
+export ARTIFACTORY_USER=artifactory
+#export JAVA_HOME=/opt/java/1.8.0
+#export START_LOCAL_REPLICATOR=true
+
+export TOMCAT_HOME=/opt/jfrog/artifactory/tomcat
+export ARTIFACTORY_PID=/var/opt/jfrog/run/artifactory.pid
+
+# mReschke adjust to 2048m initial and 3500m max (we have 4GB on VM)
+export JAVA_OPTIONS="-server -Xms2048m -Xmx3500m -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\"kill -9 %p\""
+export JAVA_OPTIONS="$JAVA_OPTIONS -Djruby.compile.invokedynamic=false -Dfile.encoding=UTF8 -Dartdist=deb -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true -Djava.security.egd=file:/dev/./urandom"
+
+# Timeout waiting for artifactory to start
+# START_TMO=60

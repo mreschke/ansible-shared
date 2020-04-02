@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Basic HD speed test using DD
+# mReschke 2017-07-11
+
+file=./bigfile
+size=1024
+
+printf "Cached write speed...\n"
+dd if=/dev/zero of=$file bs=1M count=$size
+
+printf "\nUncached write speed...\n"
+dd if=/dev/zero of=$file bs=1M count=$size conv=fdatasync,notrunc
+
+printf "\nUncached read speed...\n"
+echo 3 > /proc/sys/vm/drop_caches
+dd if=$file of=/dev/null bs=1M count=$size
+
+printf "\nCached read speed...\n"
+dd if=$file of=/dev/null bs=1M count=$size
+
+rm $file
+printf "\nDone\n"

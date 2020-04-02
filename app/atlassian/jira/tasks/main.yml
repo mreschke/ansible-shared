@@ -1,0 +1,39 @@
+---
+# Create the jira PostgreSQL user
+- name: Creating the jira PostgreSQL user
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    name: jira
+    password: '{{ jira_password }}'
+    encrypted: yes
+    expires: infinity
+    state: present
+
+# pgsql can login in many ways
+# Local linux user on socket: sudo -u jira psql jira
+# TCP/IP with password: psql -h localhost -U jira jira
+
+# Create the jira PostgreSQL database
+- name: Creating the jira PostgreSQL database
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    db: jira
+    encoding: UNICODE
+    lc_collate: C
+    lc_ctype: C
+    template: template0
+    owner: jira
+
+# Create PostgreSQL account for employee mreschke
+- name: Creating PostgreSQL account for mreschke
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    name: mreschke
+    role_attr_flags: SUPERUSER
+    password: '{{ mreschke_password }}'
+    encrypted: yes
+    expires: infinity
+    state: present

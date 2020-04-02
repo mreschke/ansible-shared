@@ -1,0 +1,21 @@
+---
+- name: Addding Artifactory OSS apt repository key
+  apt_key: url='https://bintray.com/user/downloadSubjectPublicKey?username=jfrog' state=present
+
+- name: Adding Artifactory OSS apt repository sources
+  apt_repository: repo='deb https://jfrog.bintray.com/artifactory-pro-debs stretch main' state=present
+
+- name: Installing Artifactory OSS
+  apt: name={{ item }} update_cache=yes state=present
+  with_items:
+    - jfrog-artifactory-pro
+
+# Copy /etc/opt/jfrog/artifactory/default
+- name: Copying /etc/opt/jfrog/artifactory/default
+  copy:
+    src: files/default
+    dest: /etc/opt/jfrog/artifactory/default
+    owner: artifactory
+    group: artifactory
+    mode: 0644
+  notify: restart artifactory

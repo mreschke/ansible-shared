@@ -1,0 +1,36 @@
+---
+# Create the atlbitbucket PostgreSQL user
+- name: Creating the atlbitbucket PostgreSQL user
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    name: atlbitbucket
+    password: '{{ atlbitbucket_password }}'
+    encrypted: yes
+    expires: infinity
+    state: present
+
+# pgsql can login in many ways
+# Local linux user on socket: sudo -u atlbitbucket psql bitbucket
+# TCP/IP with password: psql -h localhost -U atlbitbucket bitbucket
+
+# Create the bitbucket PostgreSQL database
+- name: Creating the bitbucket PostgreSQL database
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    db: bitbucket
+    encoding: UTF-8
+    owner: atlbitbucket
+
+# Create PostgreSQL account for employee mreschke
+- name: Creating PostgreSQL account for mreschke
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    name: mreschke
+    role_attr_flags: SUPERUSER
+    password: '{{ mreschke_password }}'
+    encrypted: yes
+    expires: infinity
+    state: present

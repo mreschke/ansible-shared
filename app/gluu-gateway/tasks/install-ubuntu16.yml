@@ -1,0 +1,15 @@
+# Add GLUU sources GPG keys
+- name: Addding GLUU sources GPG keys
+  apt_key: url='https://repo.gluu.org/ubuntu/gluu-apt.key' state=present
+
+# Add GLUU repositories
+- name: Adding GLUU sources for Ubuntu 16.04
+  apt_repository: repo='deb https://repo.gluu.org/ubuntu/ xenial main' state=present
+
+# Install GLUU Gateway
+- name: Installing GLUU Gateway
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - gluu-gateway

@@ -1,0 +1,2 @@
+rsync -vaP --delete linstore:/store/data/manup/nwq/vimrc/source/vimrc-current/etc/vim/ ./vim
+find ./vim -type d -name '.git' -exec rm -rf {} \;

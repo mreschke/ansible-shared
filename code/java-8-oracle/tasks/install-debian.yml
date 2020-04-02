@@ -1,0 +1,37 @@
+---
+# From https://linoxide.com/debian/install-java-8-debian-gnulinux-9-stretch/
+# Using a Ubuntu 16.10 yakkety PPA, actually that failed
+# For debian 9 the debian 8 xenial instructions worked
+# See https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-debian-8
+
+# Install software-properties-common (for PPA usage)
+- name: Installing software-properties-common for PPA usage on Debian
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - software-properties-common
+      - dirmngr
+
+# Add GPG Keys
+- name: Addding Oracle Java 8 sources GPG key
+  apt_key: keyserver=keyserver.ubuntu.com id=C2518248EEA14886 state=present
+
+# Installing oracle-java8-installer presents an interactive EULA, this silences that
+- name: Accept Oracle Java 8 License
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+# Add Java repositories for Debian 9
+# For debian 8 see https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-debian-8
+# Tried yakkety, failed, couldn't even find oracle-java8-installer in dpkg database
+# Replaced with older Debian 8 xenial PPA
+- name: Adding Oracle Java sources for Debian 9 Jessie
+  apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+# Install oracle-java8-installer
+- name: Installing oracle-java8-installer
+  apt:
+    update_cache: yes
+    state: present
+    name: oracle-java8-installer

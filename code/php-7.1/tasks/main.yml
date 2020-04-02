@@ -1,0 +1,6 @@
+---
+# php-7.1
+
+# Install PHP 7.1 - Debian All Versions
+- include_tasks: install-debian.yml
+  when: ansible_os_family == "Debian"

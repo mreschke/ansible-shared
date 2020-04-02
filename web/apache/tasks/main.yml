@@ -1,0 +1,7 @@
+# Install Apache (2.4 with Debian 9)
+- name: Installing apache
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - apache2

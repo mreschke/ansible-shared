@@ -1,0 +1,7 @@
+---
+# Install dovecot
+- name: Installing dovecot
+  apt:
+    update_cache: yes
+    state: present
+    name: dovecot-imapd

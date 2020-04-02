@@ -1,0 +1,17 @@
+---
+# Add microsoft GPG keys
+- name: Addding microsoft sources GPG key
+  apt_key: url='https://packages.microsoft.com/keys/microsoft.asc' state=present
+
+# Add microsoft repo sources
+- name: Adding microsoft sources for Debian 9 Jessie
+  apt_repository: repo='deb [arch=amd64] https://packages.microsoft.com/debian/9/prod stretch main' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+# Install ASP.NET Core Runtime 2.1
+- name: Installing ASP.NET Core Runtime 2.1
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - aspnetcore-runtime-2.1

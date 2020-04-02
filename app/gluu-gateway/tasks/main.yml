@@ -1,0 +1,4 @@
+---
+# Gluu Gateway works on Ubuntu 16.04...not on Debian 9
+- include_tasks: install-ubuntu16.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04"

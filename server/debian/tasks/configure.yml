@@ -1,0 +1,32 @@
+---
+# Increase number of TCP connections per port (debian default 128)
+- name: Increasing number of TCP connections per port /etc/sysctl.conf net.core.somaxconn = 4096
+  sysctl:
+    name: net.core.somaxconn
+    value: '4096'
+    reload: yes
+    state: present
+
+# Increase open files (ulimit), default debian 1024
+# View ulimit -a
+- name: Increase soft open file limit (ulimit)
+  pam_limits:
+    domain: '*'
+    limit_type: soft
+    limit_item: nofile
+    value: '65535'
+- name: Increase hard open file limit (ulimit)
+  pam_limits:
+    domain: '*'
+    limit_type: hard
+    limit_item: nofile
+    value: '65535'
+
+# Enable Memory Overcommit /etc/sysctl.conf vm.overcommit_memory = 1
+# View with sysctl -a |grep max_user_watches (default on debian is 8192)
+- name: Increase fs.inotify.max_user_watches in /etc/sysctl.conf
+  sysctl:
+    name: fs.inotify.max_user_watches
+    value: '524288'
+    reload: yes
+    state: present

@@ -1,0 +1,74 @@
+---
+# Configure mariadb and redis
+- include_tasks: configure-mariadb.yml
+- include_tasks: configure-redis.yml
+
+# Configure OpenNebula /etc/one/oned.conf
+- name: Writing /etc/one/oned.conf configuration
+  template:
+    src: "files/oned.conf"
+    dest: "/etc/one/oned.conf"
+    owner: root
+    group: root
+    mode: 0644 #-rw-r--r--
+  notify: restart opennebula
+
+# Override sunstone CSS
+- name: Writing custom sunstone css file
+  copy:
+    src: 'files/sunstone/custom.css'
+    dest: '/usr/lib/one/sunstone/public/css/custom.css'
+    owner: 'oneadmin'
+    group: 'oneadmin'
+    mode: 0644
+  notify: restart sunstone
+
+# Set oneadmin password (not linux password, but OpenNebula software password)
+- lineinfile:
+    path: /var/lib/one/.one/one_auth
+    regexp: '^oneadmin:'
+    line: 'oneadmin:{{ oneadmin_password }}'
+  notify: restart opennebula
+
+# Installing OpenNebula automatically creates user oneadmin ID 9869
+# We just need to set the [linux user] password here
+- name: Setting oneadmin linux password
+  user:
+    name: 'oneadmin'
+    password: '{{ oneadmin_linux_password }}'
+    update_password: always
+
+# Copy ssh client config for oneadmin user
+- name: Copying oneadmin SSH client config
+  copy:
+    src: 'files/ssh.config'
+    dest: '/var/lib/one/.ssh/config'
+    owner: 'oneadmin'
+    group: 'oneadmin'
+    mode: 0644
+
+# Authorize oneadmin user to SSH into itself
+- name: Authorizing SSH keys for oneadmin
+  authorized_key:
+    user: 'oneadmin'
+    key: '{{ item }}'
+  with_file:
+    - '../../users/keys/oneadmin.key.pub'
+
+# Create oneadmin public key
+- name: Copying oneadmin SSH public key
+  copy:
+    src: '../../users/keys/oneadmin.key.pub'
+    dest: '/var/lib/one/.ssh/id_rsa.pub'
+    owner: 'oneadmin'
+    group: 'oneadmin'
+    mode: 0644
+
+# Create oneadmin private key
+- name: Copying oneadmin SSH private key
+  copy:
+    src: '../../../vault/oneadmin.key'
+    dest: '/var/lib/one/.ssh/id_rsa'
+    owner: 'oneadmin'
+    group: 'oneadmin'
+    mode: 0600

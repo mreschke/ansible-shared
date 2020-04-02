@@ -1,0 +1,38 @@
+---
+# Copy MariaDBs server config file
+- name: Writing /etc/mysql/mariadb.conf.d/50-server.cnf
+  template:
+    src: "files/mariadb/50-server.cnf"
+    dest: "/etc/mysql/mariadb.conf.d/50-server.cnf"
+    owner: root
+    group: root
+    mode: 0644 #-rw-r--r--
+  notify: restart mariadb # Only runs if file changed!
+
+# Set MySQL options defined in OpenNebula docs
+- name: Configuring MySQL isolation level for OpenNebula
+  command: mysql -e "SET GLOBAL TRANSACTION ISOLATION LEVEL READ COMMITTED;"
+
+# Create the opennebula MySQL database
+- name: Creating the OpenNebula database
+  mysql_db:
+    name: opennebula
+    state: present
+
+# Create oneadmin MySQL user
+- name: Creating MySQL oneadmin user
+  mysql_user:
+    name: oneadmin
+    host: localhost # This is local user, you cannot access MySQL on this user remotely (not '%' login), this is good
+    password: '{{ oneadmin_password }}'
+    priv: 'opennebula.*:ALL'
+    state: present # Verified if you change the PW and re-run, it DOES change properly!
+
+# Create MySQL accounts for employee mreschke
+- name: Creating MySQL account for mreschke
+  mysql_user:
+    name: mreschke
+    host: '%'
+    password: '{{ mreschke_password }}'
+    priv: '*.*:ALL'
+    state: present

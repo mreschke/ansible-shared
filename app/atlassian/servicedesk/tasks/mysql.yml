@@ -1,0 +1,36 @@
+---
+# Copy MySQL server config file
+- name: Writing /etc/mysql/percona-server.conf.d/mysqld.cnf
+  template:
+    src: "files/mysql/mysqld.cnf"
+    dest: "/etc/mysql/percona-server.conf.d/mysqld.cnf"
+    owner: root
+    group: root
+    mode: 0644 #-rw-r--r--
+  notify: restart mysql # Only runs if file changed!
+
+# Create the servicedesk MySQL database
+- name: Creating the servicedesk database
+  mysql_db:
+    name: servicedesk
+    state: present
+    encoding: utf8
+    collation: utf8_bin
+
+# Create servicedesk MySQL user
+- name: Creating MySQL servicedesk user
+  mysql_user:
+    name: servicedesk
+    host: localhost # This is local user, you cannot access MySQL on this user remotely (not '%' login), this is good
+    password: '{{ servicedesk_password }}'
+    priv: 'servicedesk.*:ALL'
+    state: present # Verified if you change the PW and re-run, it DOES change properly!
+
+# Create MySQL accounts for employee mreschke
+- name: Creating MySQL account for mreschke
+  mysql_user:
+    name: mreschke
+    host: '%'
+    password: '{{ mreschke_password }}'
+    priv: '*.*:ALL'
+    state: present

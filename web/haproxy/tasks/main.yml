@@ -1,0 +1,39 @@
+---
+# Install Haproxy
+- name: Installing Haproxy
+  apt:
+    update_cache: yes
+    state: present
+    name: haproxy
+
+# Copy /etc/rsyslog.conf
+- name: Copying /etc/rsyslog.conf
+  copy:
+    src: rsyslog.conf
+    dest: /etc/rsyslog.conf
+    owner: root
+    group: root
+    mode: 0644 # -rw-r--r--
+  notify: restart rsyslog
+
+# Copy /etc/rsyslog.d/49-haproxy.conf
+# Generic roles should never apply "default" configs, but this one is OK as every instance will inherit this rsyslog setting
+- name: Copying /etc/rsyslog.d/49-haproxy.conf
+  copy:
+    src: 49-haproxy.conf
+    dest: /etc/rsyslog.d/49-haproxy.conf
+    owner: root
+    group: root
+    mode: 0644 # -rw-r--r--
+  notify: restart rsyslog
+
+# Copy scripts to /usr/local/bin
+- name: Copying scripts to /usr/local/bin
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: toor
+    group: staff
+    mode: 0775
+  with_fileglob:
+    - bin/*

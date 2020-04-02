@@ -1,0 +1,9 @@
+---
+- name: Installing mariadb
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - mariadb-server-10.3
+      - python-mysqldb # required for ansible mysql module
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"

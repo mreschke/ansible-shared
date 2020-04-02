@@ -1,0 +1,34 @@
+---
+# Copy /etc/mysql/mysql.conf.d/mysqld.cnf
+- name: Copying /etc/mysql/mysql.conf.d/mysqld.cnf
+  copy:
+    src: files/mysql/mysqld.cnf
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart mysql # Only reloads if file has changed!
+
+# Create the confluence MySQL database
+- name: Creating the confluence database
+  mysql_db:
+    name: confluence
+    state: present
+
+# Create confluence MySQL user
+- name: Creating MySQL confluence user
+  mysql_user:
+    name: confluence
+    host: localhost # This is local user, you cannot access MySQL on this user remotely (not '%' login), this is good
+    password: '{{ confluence_password }}'
+    priv: 'confluence.*:ALL'
+    state: present # Verified if you change the PW and re-run, it DOES change properly!
+
+# Create MySQL accounts for employee mreschke
+- name: Creating MySQL account for mreschke
+  mysql_user:
+    name: mreschke
+    host: '%'
+    password: '{{ mreschke_password }}'
+    priv: '*.*:ALL'
+    state: present

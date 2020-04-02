@@ -1,0 +1,7 @@
+---
+# Install Nginx
+- name: Installing Nginx
+  apt:
+    update_cache: yes
+    state: present
+    name: nginx-light

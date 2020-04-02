@@ -1,0 +1,26 @@
+---
+# We use the official PostgreSQL repositories which contains many versions of PostgreSQL
+# Most of these versions will be newer than comes stock with debian
+
+# Add GPG keys
+- name: Addding PostgreSQL sources GPG key
+  apt_key: url='https://www.postgresql.org/media/keys/ACCC4CF8.asc' state=present
+
+# Add PostgreSQL repositories for Debian 9
+- name: Adding PostgreSQL sources for Debian 9 Jessie
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' state=present
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == "9"
+
+# Add PostgreSQL repositories for Ubuntu 16.04
+- name: Adding PostgreSQL sources for Ubuntu 16.04
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' state=present
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04"
+
+# Install PostgreSQL 10
+- name: Installing PostgreSQL 10
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - postgresql-10
+      - python-psycopg2 # Required for ansible postgres manipulation

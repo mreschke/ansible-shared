@@ -1,0 +1,22 @@
+---
+# Add Gitlab sources GPG keys
+# Reverse engineered their https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh
+- name: Addding Gitlab sources GPG keys
+  apt_key: url='https://packages.gitlab.com/gitlab/gitlab-ee/gpgkey' state=present
+
+# Add Gitlab repositories - Debian 9 Stretch
+# Reverse engineered their https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh
+# They CURL this URL to get actual apt-sources https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/config_file.list?os=debian&dist=stretch&source=script
+- name: Adding Gitlab sources for Debian 9 Stretch
+  apt_repository: repo='deb https://packages.gitlab.com/gitlab/gitlab-ee/debian/ stretch main' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+# Install Gitlab
+- name: Installing Gitlab
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - gitlab-ee
+  environment:
+    EXTERNAL_URL: '{{ url }}'

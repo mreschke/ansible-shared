@@ -1,0 +1,15 @@
+---
+# Assuming physical servers are Debian
+- name: Installing physical server applications
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - ifenslave         # NIC bonding and LACP
+      - bridge-utils      # NIC bridging
+      - vlan              # NIC VLAN tagging
+      - ethtool           # LAN speed and blinking
+      - firmware-linux    # Install all firmware including nonfree and misc
+      - kpartx            # To examine subpartitions of VM images
+      - ntfs-3g           # To examine NTFS VM images
+      - smartmontools     # S.M.A.R.T hard drive tools

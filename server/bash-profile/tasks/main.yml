@@ -1,0 +1,47 @@
+---
+# Copy profiles to /etc/profile.d/
+- name: Copying profiles to /etc/profile.d
+  copy:
+    src: "{{ item }}"
+    dest: /etc/profile.d/
+    owner: root
+    group: root
+    mode: 0755
+  with_fileglob:
+    - profile.d/*
+
+# Copy scripts to /usr/local/bin
+- name: Copying scripts to /usr/local/bin
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: toor
+    group: staff
+    mode: 0775
+  with_fileglob:
+    - bin/*
+
+# Rsync /etc/vim
+- name: Synchronizing /etc/vim
+  synchronize:
+    src: files/vim/vim
+    dest: /etc/
+    delete: yes
+    group: no
+    owner: no
+    rsync_opts:
+      - "--exclude=.git"
+
+- name: Sed /etc/vim/vimrc
+  replace:
+    path: /etc/vim/vimrc
+    regexp: '~/.vim/plugged'
+    replace: '/etc/vim/plugged'
+
+- name: Symlink /usr/share/vim/vimfiles
+  file:
+    src: /etc/vim
+    dest: /usr/share/vim/vimfiles
+    owner: root
+    group: root
+    state: link

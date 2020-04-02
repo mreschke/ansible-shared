@@ -1,0 +1,16 @@
+---
+# Install and Configure OpenNebula and Mysql
+- include_tasks: install.yml
+- include_tasks: configure.yml
+
+# Ensure opennebula service is running
+- name: Starting OpenNebula Service
+  service:
+    name: opennebula
+    state: started
+
+# Ensure opennebula-sunstone service is running
+- name: Starting OpenNebula Sunstone Service
+  service:
+    name: opennebula-sunstone
+    state: started

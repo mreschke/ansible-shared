@@ -1,0 +1,14 @@
+---
+  # Install nodesource
+  - name: Installing nodesource for node.js 12x LTS
+    command: "{{item}}"
+    with_items:
+      - curl -o install https://deb.nodesource.com/setup_12.x
+      - bash install
+    args:
+      chdir: /tmp
+      creates: /usr/bin/nodejs
+
+  # Install NodeJS 10.x LTS
+  - name: Installing node.js 12x LTS
+    apt: name=nodejs state=present

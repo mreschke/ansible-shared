@@ -1,0 +1,12 @@
+---
+
+# NOTE, NOT being used yet, build for Confluence, we decided to use the embedded version of java instead
+# Experiment later if needed
+
+
+
+# Oracle Java 8
+
+# Install Oracle Java 8 - Debian All Versions
+- include_tasks: install-debian.yml
+  when: ansible_os_family == "Debian"

@@ -1,0 +1,8 @@
+This opennebula-5.4.1-fresh-install-db file is a dump right after opennebula was installed.
+A fresh install using ansible exactly as described in the documentation
+I did however, visit sunstone and login as oneadmin just once.  I did nothing in the GUI, just logged in.
+Perhaps login identifies an empty db and stubs it out.  Or it was stubbed upon initial installation
+
+If resetting opennebula to fresh install is as simple as a fresh created db, then this file is it.
+But I am not sure if that is all it takes.  Could have stuff elsewhere.  To reset, you can also use the root
+LVM snapshot created on the controller node, then re-run ansible!

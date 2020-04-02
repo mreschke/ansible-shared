@@ -1,0 +1,24 @@
+---
+- name: Installing Docker apt repository prerequisites
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - gnupg2
+      - software-properties-common
+
+- name: Addding Docker apt repository key
+  apt_key: url='https://download.docker.com/linux/debian/gpg' state=present
+
+- name: Adding Docker apt repository sources
+  apt_repository: repo='deb [arch=amd64] https://download.docker.com/linux/debian stretch stable' state=present
+
+- name: Installing Docker
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - docker-ce
+      - docker-compose

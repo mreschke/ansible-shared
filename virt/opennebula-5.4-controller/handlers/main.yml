@@ -1,0 +1,12 @@
+---
+- name: restart mariadb
+  service: name=mariadb state=restarted
+
+- name: restart redis
+  service: name=redis-server state=restarted
+
+- name: restart opennebula
+  service: name=opennebula state=restarted
+
+- name: restart sunstone
+  service: name=opennebula-sunstone state=restarted

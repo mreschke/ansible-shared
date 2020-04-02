@@ -1,0 +1,25 @@
+---
+# Install pyenv
+- include_tasks: install-pyenv.yml
+
+# Copy scripts to /usr/local/bin
+- name: Copying scripts to /usr/local/bin
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: toor
+    group: staff
+    mode: 0775
+  with_fileglob:
+    - bin/*
+
+# Copy profiles to /etc/profile.d/
+- name: Copying profiles to /etc/profile.d
+  copy:
+    src: "{{ item }}"
+    dest: /etc/profile.d/
+    owner: root
+    group: root
+    mode: 0755
+  with_fileglob:
+    - profile.d/*

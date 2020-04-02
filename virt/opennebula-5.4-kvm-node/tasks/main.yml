@@ -1,0 +1,4 @@
+---
+# Install and Configure OpenNebula Node
+- include_tasks: install.yml
+- include_tasks: configure.yml

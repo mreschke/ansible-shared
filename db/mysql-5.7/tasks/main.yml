@@ -1,0 +1,6 @@
+---
+# Oracle MySQL 5.7
+
+# Install Oracle MySQL 5.7 - Debian All Versions
+- include_tasks: install-debian.yml
+  when: ansible_os_family == "Debian"

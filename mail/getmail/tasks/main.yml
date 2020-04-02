@@ -1,0 +1,7 @@
+---
+# Install getmail
+- name: Installing getmail
+  apt:
+    update_cache: yes
+    state: present
+    name: getmail4

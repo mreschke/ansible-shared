@@ -1,0 +1,6 @@
+---
+# postgresql-9.6
+
+# Install PostgreSQL 9.6 - Debian All Versions
+- include_tasks: install-debian.yml
+  when: ansible_os_family == "Debian"

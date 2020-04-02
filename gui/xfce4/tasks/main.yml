@@ -1,0 +1,9 @@
+---
+  # Install xfce4 and goodies
+  - name: Installing xfce4 and goodies
+    apt:
+      update_cache: yes
+      state: present
+      name:
+        - xfce4
+        - xfce4-goodies

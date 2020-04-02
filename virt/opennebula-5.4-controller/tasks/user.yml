@@ -1,0 +1,44 @@
+---
+#OBSOLETE, you can delete when ready, afte review
+# but this is done in /controller.yml as part of role: users now
+
+# Create oneadmin group
+- name: Creating group oneadmin
+  group:
+    name: 'oneadmin'
+
+# Create oneadmin user
+- name: Create user oneadmin
+  user:
+    name: 'oneadmin'
+    comment: 'oneadmin'
+    group: 'oneadmin'
+    groups: [oneadmin,disk]
+    password: '{{ oneadmin_password }}'
+    shell: /bin/bash
+
+# Set oneadmin SSH keys
+- name: Copying oneadmin SSH public key
+  copy:
+    src: oneadmin.key.pub
+    dest: /var/lib/one/.ssh/id_rsa.pub
+    owner: oneadmin
+    group: oneadmin
+    mode: 0644
+
+- name: Copying oneadmin SSH private key
+  copy:
+    src: ../../../vault/oneadmin.key
+    dest: /var/lib/one/.ssh/id_rsa
+    owner: oneadmin
+    group: oneadmin
+    mode: 0600
+
+# Authorize oneadmin to SSH to self
+- name: Authorizing oneadmin SSH keys
+  authorized_key:
+    user: 'oneadmin'
+    key: '{{ item }}'
+    exclusive: true
+  with_file:
+    - 'files/oneadmin.key.pub'

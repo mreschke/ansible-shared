@@ -1,0 +1,9 @@
+---
+# Install ProFTPd Server
+- name: Installing ProFTPd Server
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - proftpd-basic
+      - proftpd-mod-mysql

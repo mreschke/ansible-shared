@@ -1,0 +1,98 @@
+---
+# Create 256G datastore LVM for .img or .qcow2 filese.  Other large VMs (databases) will use RAW LVM partitions!
+- name: LVM create 256G /dev/vg0/datastore
+  lvol:
+    vg: vg0
+    lv: datastore
+    #size: 256G
+    size: 80G
+# Format /dev/vg0/datastore as ext4
+- name: Formatting /dev/vg0/datastore as ext4
+  filesystem:
+    fstype: ext4
+    dev: /dev/vg0/datastore
+
+# Mount datastore volume
+# Adds this to /etc/fstab and mounts: /dev/vg0/datastore /var/lib/one/datastores ext4 defaults 0 0
+# NO, too complex if we are doing per node RAW LVM volumes too, need to engineer manually per node
+- name: Mount large datastore volume
+  mount:
+    path: /var/lib/one/datastores
+    src: /dev/vg0/datastore
+    fstype: ext4
+    state: mounted
+- file: {path: /var/lib/one/datastores, owner: oneadmin, group: oneadmin}
+
+# Installing OpenNebula automatically creates user oneadmin ID 9869
+# We just need to set the [linux user] password here
+- name: Setting oneadmin password
+  user:
+    name: 'oneadmin'
+    password: '{{ oneadmin_linux_password }}'
+    update_password: always
+
+# Copy ssh client config for oneadmin user
+- name: Copying oneadmin SSH client config
+  copy:
+    src: 'files/ssh.config'
+    dest: '/var/lib/one/.ssh/config'
+    owner: 'oneadmin'
+    group: 'oneadmin'
+    mode: 0644
+
+# Authorize oneadmin user to SSH into itself
+- name: Authorizing SSH keys for oneadmin
+  authorized_key:
+    user: 'oneadmin'
+    key: '{{ item }}'
+  with_file:
+    - '../../users/keys/oneadmin.key.pub'
+
+# Create oneadmin public key
+- name: Copying oneadmin SSH public key
+  copy:
+    src: '../../users/keys/oneadmin.key.pub'
+    dest: '/var/lib/one/.ssh/id_rsa.pub'
+    owner: 'oneadmin'
+    group: 'oneadmin'
+    mode: 0644
+
+# Create oneadmin private key
+- name: Copying oneadmin SSH private key
+  copy:
+    src: '../../../vault/oneadmin.key'
+    dest: '/var/lib/one/.ssh/id_rsa'
+    owner: 'oneadmin'
+    group: 'oneadmin'
+    mode: 0600
+
+# Copy libvirt.conf
+- name: Copying /etc/libvirt/libvirt.conf
+  copy:
+    src: libvirt.conf
+    dest: /etc/libvirt/libvirt.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart libvirtd # Only runs if file changed!
+
+# Copy scripts to /usr/local/bin
+- name: Copying scripts to /usr/local/bin
+  template:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: toor
+    group: staff
+    mode: 0755
+  with_fileglob:
+    - files/bin/*
+
+# Schedule cron
+- name: Scheduling cron cron-root-daily-12am
+  cron:
+    name: "cron-root-daily-12am"
+    minute: "0"
+    hour: "0"
+    #job: "/usr/local/bin/cron-root-daily-12am.sh > /dev/null"
+    job: "/usr/local/bin/cron-root-daily-12am.sh"
+    user: root

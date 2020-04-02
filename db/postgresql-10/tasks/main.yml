@@ -1,0 +1,6 @@
+---
+# postgresql-10
+
+# Install PostgreSQL 10 - Debian and Ubuntu
+- include_tasks: install-debian.yml
+  when: ansible_os_family == "Debian"

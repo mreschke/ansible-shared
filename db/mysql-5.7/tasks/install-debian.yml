@@ -1,0 +1,31 @@
+---
+# We use the official MySQL repositories which contains many versions of MySQL
+# All of these versions will be newer than comes stock with debian
+
+# Add MySQL GPG keys
+# When I tried to setup this up initially, this pgp.mit.edu site was down
+# So following https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
+# I downloaded https://dev.mysql.com/downloads/repo/apt/
+# and `dpkg -i mysql-apt-config_0.8.10-1_all.deb` instead (selecting mysql 5.7)
+# which according to `apt-key list` did indeed install the `A4A9 4068 76FC BD3C 4567  70C8 8C71 8D3B 5072 E1F5` fingerprinted key
+- name: Addding MySQL sources GPG key
+  apt_key: keyserver=pgp.mit.edu id=5072E1F5 state=present
+
+# Add MySQL repositories for Debian 8
+- name: Adding MySQL sources for Debian 8 Jessie
+  apt_repository: repo='deb http://repo.mysql.com/apt/debian/ jessie mysql-5.7' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "8"
+
+# Add MySQL repositories for Debian 9
+- name: Adding MySQL sources for Debian 9 Jessie
+  apt_repository: repo='deb http://repo.mysql.com/apt/debian/ stretch mysql-5.7' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+# Install MySQL 5.7
+- name: Installing MySQL 5.7
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - mysql-server
+      - python-mysqldb  # Required for ansible to createdb or createuser

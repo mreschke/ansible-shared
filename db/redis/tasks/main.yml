@@ -1,0 +1,40 @@
+---
+- name: Installing redis
+  apt:
+    update_cache: yes
+    state: present
+    name: redis-server
+
+# Enable Memory Overcommit /etc/sysctl.conf vm.overcommit_memory = 1
+# View with sysctl -a |grep overcommit
+- name: Enable Memory Overcommit /etc/sysctl.conf vm.overcommit_memory = 1
+  sysctl:
+    name: vm.overcommit_memory
+    value: 1
+    reload: yes
+    state: present
+  notify: restart redis # Only runs if file changed!
+
+# Disable Swapping /etc/sysctl.conf vm.swappiness = 0
+- name: Setting /etc/sysctl.conf vm.swappiness = 0
+  sysctl:
+    name: vm.swappiness
+    value: 0
+    reload: yes
+    state: present
+  notify: restart redis # Only runs if file changed!
+
+# Disable THP (Transparent Huge Pages)
+# View with cat /sys/kernel/mm/transparent_hugepage/enabled
+# View with cat /sys/kernel/mm/transparent_hugepage/defrag
+# Copy systemd unit /etc/systemd/system/disable-thp.service
+- name: Disable Transperent Huge Pages using Systemd unit /etc/systemd/system/disable-thp.service
+  template:
+    src: "files/disable-thp.service"
+    dest: "/etc/systemd/system/disable-thp.service"
+    owner: root
+    group: root
+    mode: 0644 # -rw-r--r--
+  notify:
+    - disable thp
+    - restart redis # Only runs if file changed!

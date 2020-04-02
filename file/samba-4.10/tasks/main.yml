@@ -1,0 +1,18 @@
+---
+# Debian 9 comes with samba 4.5, this is a custom 4.10 setup
+
+# Add van-belle.nl keys
+- name: Addding van-belle.nl keys
+  apt_key: url='http://apt.van-belle.nl/louis-van-belle.gpg-key.asc' state=present
+
+# Add van-belle.nl samba 4.10 sources for Debian 9 Jessie
+- name: Adding van-belle.nl samba 4.10 sources for Debian 9 Jessie
+  apt_repository: repo='deb http://apt.van-belle.nl/debian stretch-samba410 main contrib non-free' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+# Install Samba 4.10
+- name: Installing Samba 4.10
+  apt:
+    update_cache: yes
+    state: present
+    name: samba

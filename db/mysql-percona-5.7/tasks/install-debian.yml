@@ -1,0 +1,21 @@
+---
+# Add Percona repositories for Debian 9
+- name: Adding Percona sources for Debian 9 Jessie
+  apt:
+    deb: https://repo.percona.com/apt/percona-release_0.1-6.stretch_all.deb
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+# Add Percona repositories for Debian 10
+- name: Adding Percona sources for Debian 10 Buster
+  apt:
+    deb: https://repo.percona.com/apt/percona-release_latest.buster_all.deb
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
+
+# Install Percona Server 5.7
+- name: Installing MySQL Percona Server 5.7
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - percona-server-server-5.7
+      - python-mysqldb  # Required for ansible to createdb or createuser
