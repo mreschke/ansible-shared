@@ -1,0 +1,7 @@
+---
+# Install Certbot
+- name: Installing Certbot
+  apt:
+    update_cache: yes
+    state: present
+    name: certbot
