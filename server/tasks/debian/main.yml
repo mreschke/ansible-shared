@@ -1,0 +1,20 @@
+---
+# Debian Server
+# ------------------------------------------------------------------------------
+- name: Configuring debian/ubuntu server
+  include_tasks: all.yml
+
+# Physical Debian Server
+# ------------------------------------------------------------------------------
+- name: Configuring physical debian/ubuntu server
+  include_tasks: physical.yml
+  when: type == 'physical'
+
+
+# Virtual Debian Server
+# ------------------------------------------------------------------------------
+# Currently NO virtual specific debian customizations
+#- name: Configuring virtual debian/ubuntu server
+#  include_tasks: virtual.yml
+#  when: type == 'virtual'
+

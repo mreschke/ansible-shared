@@ -1,0 +1,12 @@
+---
+# Any server (OS agnostic)
+# ------------------------------------------------------------------------------
+- name: Configure any server (OS agnostic)
+  include_tasks: agnostic/main.yml
+
+
+# Debian server
+# ------------------------------------------------------------------------------
+- name: Configure debian/ubuntu server
+  include_tasks: debian/main.yml
+  when: ansible_os_family == "Debian"

@@ -1,6 +1,10 @@
 ---
-# Assuming physical servers are Debian
-- name: Installing physical server applications
+# ------------------------------------------------------------------------------
+# These tasks run for physical Debian/Ubuntu servers
+# ------------------------------------------------------------------------------
+
+# Physical Debian/Ubuntu Server
+- name: Installing physical Debian/Ubuntu server applications
   apt:
     update_cache: yes
     state: present

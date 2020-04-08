@@ -1,36 +1,29 @@
 ---
+# ------------------------------------------------------------------------------
+# These tasks run for any Debian/Ubuntu server (physical or virtual)
+# ------------------------------------------------------------------------------
+
 # Copy Debian 9 sources.list
 - name: Copying Debian 9 apt/sources.list
-  copy: src=debian9/sources.list dest=/etc/apt/sources.list
+  copy: src=debian/9/sources.list dest=/etc/apt/sources.list
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
 
 # Copy Debian 10 sources.list
 - name: Copying Debian 10 apt/sources.list
-  copy: src=debian10/sources.list dest=/etc/apt/sources.list
+  copy: src=debian/10/sources.list dest=/etc/apt/sources.list
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
 
   # Copy Ubuntu 16.04 sources.list
 - name: Copying Ubuntu 16.04 apt/sources.list
-  copy: src=ubuntu1604/sources.list dest=/etc/apt/sources.list
+  copy: src=ubuntu/16.04/sources.list dest=/etc/apt/sources.list
   when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04"
 
 # Ignore apt translations
 - name: Ignoring apt tranlations
-  copy: src=99translations dest=/etc/apt/apt.conf.d/99translations
-
-# ??? hum, I don't want dotdeb on my debian 8 controller
-# may have ZERO debian 8 except for physical, so maybe don't do this generically
-# Many packages we install for Debian8 require dotdeb, so just install it generically
-#- name: Adding Debian8 dotdeb sources
-#  apt_repository: repo='deb http://packages.dotdeb.org jessie all' state=present
-#  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "8"
-
-#- name: Addding Debian8 dotdeb GPG key
-#  apt_key: url='https://www.dotdeb.org/dotdeb.gpg' state=present
-#  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "8"
+  copy: src=debian/99translations dest=/etc/apt/apt.conf.d/99translations
 
 # Install common apps for all debian machines
-- name: Installing Debian common applications
+- name: Installing common Debian/Ubuntu applications
   apt:
     update_cache: yes
     state: present
@@ -62,46 +55,3 @@
       - dos2unix            # Convert dos line endings to unix and visa versa
       - acl                 # I customize directories often with ACL
       - dnsutils            # Dig command and other dns commands
-
-# Install PHP by default, unless explicitly ignored with - { role: server/debian, include_php: false }
-- name: Installing PHP 7 cli
-  apt:
-    update_cache: yes
-    state: present
-    name: php-cli
-  when: include_php|default(true)|bool
-
-
-
-      #    - nfs-kernel-server
-      #    - samba
-      #    - cifs-utils
-      #    - libnet-ssleay-perl
-      #    - libio-socket-ssl-perl
-      #    - libxrender1
-      #    - supervisor
-
-      # Were generic here, then commented out, careful
-      # - dos2unix
-      # - nfs-common
-      # - entr
-
-# libnet and libio are for sendEmail
-# libxrender1 is for wkhtmltopdf
-# python git dos2unix
-
-
-# other:
-# unattended-upgrades https://wiki.debian.org/UnattendedUpgrades
-# -- sending emails about updates...
-# log monitoring, security etc... maybe a new role
-
-
-#- name: Installing Debian8 applications
-#  apt: name={{ item }} update_cache=yes state=present
-#  with_items:
-
-#- name: Installing Debian 9 applications
-#  apt: name={{ item }} update_cache=yes state=present
-#  with_items:
-#  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"

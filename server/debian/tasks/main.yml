@@ -1,4 +1,0 @@
----
-# Install and Configure Debian
-- include_tasks: install.yml
-- include_tasks: configure.yml
