@@ -1,0 +1,17 @@
+---
+# Add GPG keys
+- name: Addding jitsi GPG key
+  apt_key: url='https://download.jitsi.org/jitsi-key.gpg.key' state=present
+
+# Add jitsi repositories
+- name: Adding jitsi sources for Debian
+  apt_repository: repo='deb https://download.jitsi.org stable/' state=present
+  when: ansible_os_family == "Debian"
+
+# Install Jitsi Server
+- name: Installing Jitsi Server
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - jitsi-meet

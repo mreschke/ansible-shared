@@ -17,11 +17,19 @@
   changed_when: false
   register: user_home
 
-# Notice both group and user is {{id}}, so they are the same!
+# Create group by same ID as user
 - name: Creating group {{ user  }}
   group:
     name: '{{ user }}'
     gid: '{{ id }}'
+  when: gid is undefined
+
+# Create group by options gid
+- name: Creating group {{ user  }}
+  group:
+    name: '{{ user }}'
+    gid: '{{ gid }}'
+  when: gid is defined
 
 - name: Creating user {{ user }}
   user:
@@ -53,6 +61,12 @@
     line: '{{ user }}  ALL=(ALL)  NOPASSWD:ALL'
   when: '"sudo" in group'
 
+# Create users ~/.ssh directory
+- name: Creating {{ user }} ~/.ssh directory
+  file:
+    path: '{{ "~" + user | expanduser }}/.ssh'
+    state: directory
+
 # Authorize users SSH keys
 # NOTE, when: ssh_authorize|bool == true
 # IS working, BUT even if ssh_authorize = false the
@@ -65,13 +79,6 @@
   with_file:
     - 'keys/{{ user }}.key.pub'
   when: ssh_authorize|default(true)|bool
-
-# Create users ~/.ssh directory
-- name: Creating {{ user }} ~/.ssh directory
-  file:
-    path: '{{ "~" + user | expanduser }}/.ssh'
-    state: directory
-  when: ssh_keys|default(false)|bool
 
 # Create users public key
 - name: Copying {{ user }} SSH public key

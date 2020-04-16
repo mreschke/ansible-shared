@@ -12,6 +12,7 @@
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
 
 # Install Gitlab
+# CE vs EE see https://about.gitlab.com/install/ce-or-ee/?distro=debian
 - name: Installing Gitlab
   apt:
     update_cache: yes

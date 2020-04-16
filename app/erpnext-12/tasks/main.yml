@@ -1,0 +1,12 @@
+---
+# NOTICE: Commands like frappe bench and git clone need to run
+# as the toor user, not root.  The playbook that runs this role
+# should be logging in as toor, using become:yes with toors ssh key
+# Because become:yes all command still run as root, until I use
+# become_user: toor below.
+
+#- include_tasks: configure-linux.yml
+#- include_tasks: configure-mysql.yml
+#- include_tasks: configure-python.yml
+#- include_tasks: configure-nodejs.yml
+- include_tasks: configure-erpnext.yml

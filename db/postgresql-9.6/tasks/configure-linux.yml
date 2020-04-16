@@ -1,0 +1,30 @@
+---
+# Enable Memory Overcommit /etc/sysctl.conf vm.overcommit_memory=2
+# https://www.postgresql.org/docs/12/kernel-resources.html#LINUX-MEMORY-OVERCOMMIT
+# View with sysctl -a |grep overcommit
+- name: Enable Memory Overcommit /etc/sysctl.conf vm.overcommit_memory=2
+  sysctl:
+    name: vm.overcommit_memory
+    value: '2'
+    reload: yes
+    state: present
+
+# PostgreSQL docs recommend tweaking vm.nr_hugepages by using some math like so
+# head -1 /var/lib/postgresql/12/main/postmaster.pid
+#   Gave me 14299 (this is the current process ID, can also us ps aux|grep postgres)
+# pmap 14299 | awk '/rw-s/ && /zero/ {print $2}'
+#   Substiture your process ID of course
+#   This gave me 145608K on a fresh install of postgres
+# grep ^Hugepagesize /proc/meminfo
+#   This gave me 2048KB
+# Now take 145608 / 2048 = 71.09
+# Now set sysctl -w vm.nr_hugepages=71
+
+# I however did not do this just yet.  Will wait once Postgres is actually used
+# before tweaking this type of setting
+# - NO, not yet name: Tweak vm.nr_hugepages according to some precalculated math
+#   sysctl:
+#     name: vm.nr_hugepages
+#     value: 2048
+#     reload: yes
+#     state: present

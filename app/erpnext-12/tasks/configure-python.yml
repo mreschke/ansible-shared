@@ -1,0 +1,22 @@
+---
+# Install python3-pip
+- name: Installing python3-pip
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - python3-pip
+
+# Update alternatives to python3
+- name: Updating alternatives to python3
+  alternatives:
+    name: python
+    link: /usr/bin/python
+    path: /usr/bin/python3
+
+# Update alternatives to pip3
+- name: Updating alternatives for pip3
+  alternatives:
+    name: pip
+    link: /usr/bin/pip
+    path: /usr/bin/pip3

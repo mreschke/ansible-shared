@@ -12,3 +12,7 @@
 # Install NodeJS 8.x LTS
 - name: Installing node.js 8x LTS
   apt: name=nodejs state=present
+
+
+# NOTE, I ran this on 2020-04-14 for sun-auth and it installed v10.15.2 instead?
+# Maybe 8x is deprecated?

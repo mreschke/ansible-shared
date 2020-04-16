@@ -1,0 +1,8 @@
+---
+# Configure Linux (agnostic)
+- include_tasks: configure-linux.yml
+
+# Install PostgreSQL 11 - Debian All Versions
+- include_tasks: install-debian.yml
+  when: ansible_os_family == "Debian"
+

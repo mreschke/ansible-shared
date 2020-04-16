@@ -19,15 +19,54 @@
     name: opennebula-node
   notify: restart libvirtd
 
-# Copy /etc/libvirt/libvirt.conf to bypass polkit socker permissions
+# Copy /etc/libvirt/libvirt.conf to bypass polkit socket permissions
 - name: Copying libvirtd.conf
   copy:
-    src: 'files/libvirtd.conf'
+    src: 'libvirtd-debian10.conf'
     dest: '/etc/libvirt/libvirtd.conf'
     owner: 'root'
     group: 'root'
     mode: 0644
   notify: restart libvirtd
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
+
+# Copy /etc/libvirt/libvirt.conf to bypass polkit socker permissions
+- name: Copying libvirtd.conf
+  copy:
+    src: 'libvirtd-debian9.conf'
+    dest: '/etc/libvirt/libvirtd.conf'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  notify: restart libvirtd
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+# Set permissions on /var/lib/one folder
+- name: Ensuring permissions on /var/lib/one directory
+  file:
+    path: /var/lib/one
+    state: directory
+    owner: oneadmin
+    group: oneadmin
+    mode: '0755'
+
+# Create /var/lib/one/.ssh folder
+- name: Creating /var/lib/one/.ssh directory
+  file:
+    path: /var/lib/one/.ssh
+    state: directory
+    owner: oneadmin
+    group: oneadmin
+    mode: '0755'
+
+# Create /var/log/one folder or the daemon will not start
+- name: Creating /var/log/one directory
+  file:
+    path: /var/log/one
+    state: directory
+    owner: oneadmin
+    group: oneadmin
+    mode: '0755'
 
 # Copy ssh client config for oneadmin user
 - name: Copying oneadmin SSH client config

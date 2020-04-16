@@ -1,0 +1,17 @@
+---
+# Add GPG keys
+- name: Addding Kong sources GPG key
+  apt_key: url='https://bintray.com/user/downloadSubjectPublicKey?username=bintray' state=present
+
+# Add Kong repositories for Debian 10
+- name: Adding Kong sources for Debian 10 Jessie
+  apt_repository: repo='deb https://kong.bintray.com/kong-deb buster main' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
+
+# Install Kong
+- name: Installing Kong
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - kong=2.0.3

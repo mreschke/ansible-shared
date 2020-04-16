@@ -1,0 +1,17 @@
+---
+# Install Fusionauth from online .deb (they provide NO apt repos)
+# Get latest version from curl https://metrics.fusionauth.io/api/latest-version
+# Currently 1.15.8
+- name: Install FusionAuth .deb package from the internet.
+  apt:
+    deb: https://storage.googleapis.com/inversoft_products_j098230498/products/fusionauth/1.15.8/fusionauth-app_1.15.8-1_all.deb
+
+- name: Install FusionAuth-Search .deb package from the internet.
+  apt:
+    deb: https://storage.googleapis.com/inversoft_products_j098230498/products/fusionauth/1.15.8/fusionauth-search_1.15.8-1_all.deb
+
+# Install missing dependencies
+- name: Installing missing dependencies
+  apt:
+    update_cache: yes
+    state: fixed

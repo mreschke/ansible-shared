@@ -1,0 +1,6 @@
+---
+# Install nodejs yarn globally
+- name: Installing nodejs yarn globally
+  npm:
+    name: yarn
+    global: yes

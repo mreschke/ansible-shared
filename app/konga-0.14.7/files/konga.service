@@ -1,0 +1,13 @@
+[Unit]
+Description=Konga NodeJS Website
+After=network.target
+
+[Service]
+Type=simple
+User=toor
+WorkingDirectory=/var/www/konga
+ExecStart=/usr/bin/node --harmony app.js --prod
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

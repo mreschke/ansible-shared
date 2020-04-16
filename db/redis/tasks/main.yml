@@ -10,7 +10,7 @@
 - name: Enable Memory Overcommit /etc/sysctl.conf vm.overcommit_memory = 1
   sysctl:
     name: vm.overcommit_memory
-    value: 1
+    value: '1'
     reload: yes
     state: present
   notify: restart redis # Only runs if file changed!
@@ -19,7 +19,7 @@
 - name: Setting /etc/sysctl.conf vm.swappiness = 0
   sysctl:
     name: vm.swappiness
-    value: 0
+    value: '0'
     reload: yes
     state: present
   notify: restart redis # Only runs if file changed!
@@ -34,7 +34,7 @@
     dest: "/etc/systemd/system/disable-thp.service"
     owner: root
     group: root
-    mode: 0644 # -rw-r--r--
+    mode: '0644' # -rw-r--r--
   notify:
     - disable thp
     - restart redis # Only runs if file changed!

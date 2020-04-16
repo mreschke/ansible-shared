@@ -1,0 +1,21 @@
+---
+# Add Elasticsearch GPG Key
+- name: Addding Elasticsearch sources GPG key
+  apt_key: url='https://artifacts.elastic.co/GPG-KEY-elasticsearch' state=present
+
+# Add Elasticsearch repositories for Debian 8
+- name: Adding Elasticsearch sources
+  apt_repository: repo='deb https://artifacts.elastic.co/packages/7.x/apt stable main' state=present
+
+# Install Elasticsearch
+- name: Installing Elasticsearch
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - elasticsearch
+
+# Enable service in systemd (debian does not start this daemon by default, which is not the norm)
+- name: Enabling elasticsearch.service systemd unit
+  systemd: name=elasticsearch enabled=yes state=started
+

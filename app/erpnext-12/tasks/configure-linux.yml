@@ -1,0 +1,9 @@
+---
+# Copy ssh client config for toor user so we can git clone without confirmation
+- name: Copying toor SSH client config
+  copy:
+    src: 'ssh.config'
+    dest: '/home/toor/.ssh/config'
+    owner: toor
+    group: toor
+    mode: '0644'

@@ -1,0 +1,30 @@
+---
+# Install mariadb-client
+# Required regardless if MySQL server is local or remote
+- name: Installing mariadb-client
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - mariadb-client
+
+# Enable root password (only if using localhost db)
+- name: Enable MySQL root password
+  shell: "{{ item }}"
+  with_items:
+    - mysql -e "CREATE USER 'root'@'%' IDENTIFIED BY '{{ root_db_password }}'; GRANT ALL PRIVILEGES ON *.* to 'root'@'%';"
+    - mysql -e "ALTER USER 'root'@'%' IDENTIFIED VIA mysql_native_password; SET PASSWORD = PASSWORD('{{ root_db_password }}');"
+  args:
+    # Ensure this runs only once
+    creates: ~/.config/ansible-flag-mysql-password-enabled
+  notify: restart mysql
+
+# Copy MariaDB /etc/mysql/mariadb.conf.d/60-frappe.cnf
+- name: Copying /etc/mysql/mariadb.conf.d/60-frappe.cnf
+  copy:
+    src: mysql/60-frappe.cnf
+    dest: /etc/mysql/mariadb.conf.d/60-frappe.cnf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart mysql

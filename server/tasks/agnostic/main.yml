@@ -57,7 +57,7 @@
     limit_item: nofile
     value: '65535'
 
-# Enable Memory Overcommit /etc/sysctl.conf vm.overcommit_memory = 1
+# Increase max_user_watches
 # View with sysctl -a |grep max_user_watches (default on debian is 8192)
 - name: Increase fs.inotify.max_user_watches in /etc/sysctl.conf
   sysctl:

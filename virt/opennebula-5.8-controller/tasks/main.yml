@@ -25,3 +25,39 @@
 
 # NOTE: OpenNebula daemons do NOT start after install, contrary to how most other debian packages behave.
 # This is good as we want to set passwords and other configurations before we start OpenNebula for the first time.
+
+# Set permissions on /var/lib/one folder
+- name: Ensuring permissions on /var/lib/one directory
+  file:
+    path: /var/lib/one
+    state: directory
+    owner: oneadmin
+    group: oneadmin
+    mode: '0755'
+
+# Create /var/lib/one/.ssh folder
+- name: Creating /var/lib/one/.ssh directory
+  file:
+    path: /var/lib/one/.ssh
+    state: directory
+    owner: oneadmin
+    group: oneadmin
+    mode: '0755'
+
+# Create /var/log/one folder or the daemon will not start
+- name: Creating /var/log/one directory
+  file:
+    path: /var/log/one
+    state: directory
+    owner: oneadmin
+    group: oneadmin
+    mode: '0755'
+
+# Copy ssh client config for oneadmin user
+- name: Copying oneadmin SSH client config
+  copy:
+    src: 'files/ssh.config'
+    dest: '/var/lib/one/.ssh/config'
+    owner: 'oneadmin'
+    group: 'oneadmin'
+    mode: 0644
