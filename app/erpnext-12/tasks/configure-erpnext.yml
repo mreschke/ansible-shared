@@ -1,104 +1,104 @@
 ---
-# # Pip install frappe-bench
-# - name: Installing pip frappe-bench
-#   pip:
-#     name:
-#       - frappe-bench
+# Pip install frappe-bench
+- name: Installing pip frappe-bench
+  pip:
+    name:
+      - frappe-bench
 
-# # Create {{ base }} directory
-# - name: Creating {{ base }} directory
-#   file:
-#     path: '{{ base }}'
-#     state: directory
-#     owner: toor
-#     group: toor
-#     mode: '0755'
+# Create {{ base }} directory
+- name: Creating {{ base }} directory
+  file:
+    path: '{{ base }}'
+    state: directory
+    owner: toor
+    group: toor
+    mode: '0755'
 
-# # Run frappe bench init
-# - name: Running frappe bench init
-#   # NOTICE: running as toor
-#   become_user: toor
-#   shell: bench init {{ projectname }} --frappe-branch version-12 --no-backups
-#   args:
-#     chdir: '{{ base }}'
-#     # Ensures this command only runs if the dir does NOT exist
-#     creates: '{{ path }}'
-#   when: frappe_repo is undefined
+# Run frappe bench init
+- name: Running frappe bench init
+  # NOTICE: running as toor
+  become_user: toor
+  shell: bench init {{ projectname }} --frappe-branch version-12 --no-backups
+  args:
+    chdir: '{{ base }}'
+    # Ensures this command only runs if the dir does NOT exist
+    creates: '{{ path }}'
+  when: frappe_repo is undefined
 
-# # Run frappe bench init with custom repo
-# - name: Running frappe bench init with custom repo
-#   # NOTICE: running as toor
-#   become_user: toor
-#   shell: bench init {{ projectname }} --frappe-path {{ frappe_repo }} --frappe-branch version-12 --no-backups
-#   args:
-#     chdir: '{{ base }}'
-#     # Ensures this command only runs if the dir does NOT exist
-#     creates: '{{ path }}'
-#   when: frappe_repo is defined
+# Run frappe bench init with custom repo
+- name: Running frappe bench init with custom repo
+  # NOTICE: running as toor
+  become_user: toor
+  shell: bench init {{ projectname }} --frappe-path {{ frappe_repo }} --frappe-branch version-12 --no-backups
+  args:
+    chdir: '{{ base }}'
+    # Ensures this command only runs if the dir does NOT exist
+    creates: '{{ path }}'
+  when: frappe_repo is defined
 
-# # Create frappe-bench supervisor configs
-# - name: Creating frappe-bench supervisor config
-#   become_user: toor
-#   shell: bench setup supervisor
-#   args:
-#     chdir: '{{ path }}'
-#     creates: '{{ path }}/config/supervisor.conf'
+# Create frappe-bench supervisor configs
+- name: Creating frappe-bench supervisor config
+  become_user: toor
+  shell: bench setup supervisor
+  args:
+    chdir: '{{ path }}'
+    creates: '{{ path }}/config/supervisor.conf'
 
-# # Symlink frappe-bench supervisor config
-# - name: Symlinking frappe-bench supervisor config
-#   file:
-#     src: '{{ path }}/config/supervisor.conf'
-#     dest: /etc/supervisor/conf.d/frappe-bench.conf
-#     state: link
-#   notify: reload supervisor
+# Symlink frappe-bench supervisor config
+- name: Symlinking frappe-bench supervisor config
+  file:
+    src: '{{ path }}/config/supervisor.conf'
+    dest: /etc/supervisor/conf.d/frappe-bench.conf
+    state: link
+  notify: reload supervisor
 
-# # Get ERPNext app
-# - name: Getting ERPNext app
-#   become_user: toor
-#   shell: bench get-app erpnext --branch version-12
-#   args:
-#     chdir: '{{ path }}'
-#     creates: '{{ path }}/apps/erpnext'
-#   notify: reload supervisor
-#   when: erpnext_repo is undefined
+# Get ERPNext app
+- name: Getting ERPNext app
+  become_user: toor
+  shell: bench get-app erpnext --branch version-12
+  args:
+    chdir: '{{ path }}'
+    creates: '{{ path }}/apps/erpnext'
+  notify: reload supervisor
+  when: erpnext_repo is undefined
 
-# # Get ERPNext app from custom repo
-# - name: Getting ERPNext app from custom repo
-#   become_user: toor
-#   shell: bench get-app erpnext {{ erpnext_repo }} --branch version-12
-#   args:
-#     chdir: '{{ path }}'
-#     creates: '{{ path }}/apps/erpnext'
-#   notify: reload supervisor
-#   when: erpnext_repo is defined
+# Get ERPNext app from custom repo
+- name: Getting ERPNext app from custom repo
+  become_user: toor
+  shell: bench get-app erpnext {{ erpnext_repo }} --branch version-12
+  args:
+    chdir: '{{ path }}'
+    creates: '{{ path }}/apps/erpnext'
+  notify: reload supervisor
+  when: erpnext_repo is defined
 
-# # Settings frappe bench mariadb-host
-# - name: Setting frappe bench mariadb-host
-#   become_user: toor
-#   shell: bench set-mariadb-host {{ db_host }}
-#   args:
-#     chdir: '{{ path }}'
-#   when: db_host is defined
+# Settings frappe bench mariadb-host
+- name: Setting frappe bench mariadb-host
+  become_user: toor
+  shell: bench set-mariadb-host {{ db_host }}
+  args:
+    chdir: '{{ path }}'
+  when: db_host is defined
 
-# # Create new site using local database
-# - name: Creating new frappe site using local database
-#   become_user: toor
-#   shell: bench new-site {{ site }} --admin-password {{ erpnext_admin_password }} --db-name {{ db_name }} --db-password {{ erpnext_db_password }} --mariadb-root-username root --mariadb-root-password {{ root_db_password }} --force
-#   args:
-#     chdir: '{{ path }}'
-#     creates: '{{ path }}/sites/{{ site }}'
-#   notify: reload supervisor
-#   when: db_host is undefined
+# Create new site using local database
+- name: Creating new frappe site using local database
+  become_user: toor
+  shell: bench new-site {{ site }} --admin-password {{ erpnext_admin_password }} --db-name {{ db_name }} --db-password {{ erpnext_db_password }} --mariadb-root-username root --mariadb-root-password {{ root_db_password }} --force
+  args:
+    chdir: '{{ path }}'
+    creates: '{{ path }}/sites/{{ site }}'
+  notify: reload supervisor
+  when: db_host is undefined
 
-# # Create new site using remote database
-# - name: Creating new frappe site using remote database
-#   become_user: toor
-#   shell: bench new-site {{ site }} --admin-password {{ erpnext_admin_password }} --db-name {{ db_name }} --db-password {{ erpnext_db_password }} --mariadb-root-username root --mariadb-root-password {{ root_db_password }} --force --no-mariadb-socket
-#   args:
-#     chdir: '{{ path }}'
-#     creates: '{{ path }}/sites/{{ site }}'
-#   notify: reload supervisor
-#   when: db_host is defined
+# Create new site using remote database
+- name: Creating new frappe site using remote database
+  become_user: toor
+  shell: bench new-site {{ site }} --admin-password {{ erpnext_admin_password }} --db-name {{ db_name }} --db-password {{ erpnext_db_password }} --mariadb-root-username root --mariadb-root-password {{ root_db_password }} --force --no-mariadb-socket
+  args:
+    chdir: '{{ path }}'
+    creates: '{{ path }}/sites/{{ site }}'
+  notify: reload supervisor
+  when: db_host is defined
 
 # Adding ERPNext to site
 - name: Adding ERPNext to site
