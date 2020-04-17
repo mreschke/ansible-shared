@@ -28,6 +28,8 @@
 
 # Git clone https://github.com/pantsel/konga.git
 - name: Git clone https://github.com/pantsel/konga.git tag 0.14.7
+  # NOTICE: running as toor
+  become_user: toor
   git:
     clone: yes
     force: yes
@@ -53,11 +55,15 @@
 
 # Install konga npm packages
 - name: Installing konga NPM packages
+  # NOTICE: running as toor
+  become_user: toor
   npm:
     path: /var/www/konga
 
 # Install konga bower dependencies
 - name: Installing konga bower dependencies
+  # NOTICE: running as toor
+  become_user: toor
   shell: npm run bower-deps
   args:
     chdir: /var/www/konga
@@ -79,4 +85,4 @@
     owner: root
     group: root
     mode: '0644' # -rw-r--r--
-  #NOnotify: reload konga # NO because you need to copy your own .env first
+  notify: reload konga

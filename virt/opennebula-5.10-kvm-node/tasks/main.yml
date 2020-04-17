@@ -1,5 +1,5 @@
 ---
-- name: Adding Debian 9 OpenNebula GPG key
+- name: Adding Debian OpenNebula GPG key
   apt_key: url='https://downloads.opennebula.org/repo/repo.key' state=present
   when: ansible_os_family == "Debian"
 
