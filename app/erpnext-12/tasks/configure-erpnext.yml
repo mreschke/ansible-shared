@@ -22,7 +22,7 @@
   args:
     chdir: '{{ base }}'
     # Ensures this command only runs if the dir does NOT exist
-    creates: '{{ path }}'
+    creates: '{{ path }}/apps/frappe'
   when: frappe_repo is undefined
 
 # Run frappe bench init with custom repo
@@ -33,7 +33,7 @@
   args:
     chdir: '{{ base }}'
     # Ensures this command only runs if the dir does NOT exist
-    creates: '{{ path }}'
+    creates: '{{ path }}/apps/frappe'
   when: frappe_repo is defined
 
 # Create frappe-bench supervisor configs

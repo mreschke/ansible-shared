@@ -1,0 +1,39 @@
+---
+################################################################################
+# Usage Examples
+  # Uses groups defined in group_vars/users.yml
+  #- { role: shared/user, user: toor }
+
+  # Overrides groups and sets them all here
+  #- { role: shared/user, user: toor, user_groups: [all1, all2] }
+
+  # Adds these groups to groups in gruops_vars/users.yml
+  #- { role: shared/user, user: toor, add_groups: [add1, add2] }
+
+  # Add OS specific sudo groups to user
+  #- { role: shared/user, user: billolo, add_sudo: yes }
+
+  # Create user AND authorize their key to other users
+  #- { role: shared/user, user: toor, ssh_into: [mreschke,billolo] }
+
+  # Authorize a users key to other users without creating the user (create: no)
+  #- { role: shared/user, user: mreschke, create: no, ssh_into: [toor,root]}
+
+# Optional arguments
+#   add_sudo: yes
+#   ssh_keys: yes (deploys id_rsa and is_rsa.pub)
+#   ssh_authorize: no (default yes, stops adding user to authorized_keys)
+#   create_home: no
+#   shell: /bin/zsh
+################################################################################
+# Create user and groups
+- include_tasks: create.yml
+  when: create|default(true)|bool
+
+# Authorize user via SSH
+- include_tasks: authorize.yml
+  when: ssh_into is defined and ssh_info != ""
+
+# Manjaro modifications per user
+- include_tasks: manjaro.yml
+  when: ansible_os_family == "Archlinux" and ansible_lsb.id == "ManjaroLinux"

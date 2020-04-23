@@ -1,0 +1,15 @@
+---
+# Manjaro Hack, alter ~/.bashrc
+- name: Adding bash prompt for Manjaro Linux
+  lineinfile:
+    path: '{{ "~" + user | expanduser }}/.bashrc'
+    line: 'source /etc/profile.d/bash_prompt.sh'
+    create: yes
+  when: user != 'root'
+
+- # Manjaro symlink ~/.vim
+- name: Symlinking ~/.vim to /etc/vim
+  file:
+    src: /etc/vim
+    dest: '{{ "~" + user | expanduser }}/.vim'
+    state: link

@@ -1,0 +1,7 @@
+---
+# Install apt-cacher-ng
+- name: Installing apt-cacher-ng
+  apt:
+    update_cache: yes
+    state: present
+    name: apt-cacher-ng

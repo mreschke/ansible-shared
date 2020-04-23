@@ -1,19 +1,19 @@
 ---
-# Debian Server
+# Manjaro Server
 # ------------------------------------------------------------------------------
-- name: Configuring Debian/Ubuntu physical OR virtual server
+- name: Configuring Manjaro Physical OR Virtual server
   include_tasks: all.yml
 
-# Physical Debian Server
+# Physical Manjaro Server
 # ------------------------------------------------------------------------------
-- name: Configuring Debian/Ubuntu physical server
+- name: Configuring Manjaro physical server
   include_tasks: physical.yml
   when: type == 'physical'
 
 
-# Virtual Debian Server
+# Virtual Manjaro Server
 # ------------------------------------------------------------------------------
-- name: Configuring Debian/Ubuntu virtual server
+- name: Configuring Manjaro virtual server
   include_tasks: virtual.yml
   when: type == 'virtual'
 

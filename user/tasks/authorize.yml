@@ -1,0 +1,7 @@
+---
+# Authorize this key to this users ~/.ssh/authorized_keys file
+- name: Adding {{ user }} SSH key to {{ ssh_into }} users ~/.ssh/authorized_keys
+  authorized_key:
+    user: '{{ item }}'
+    key: "{{ lookup('file', user_path + '/keys/' + user + '.key.pub') }}"
+  with_items: '{{ ssh_into }}'

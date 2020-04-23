@@ -18,6 +18,7 @@
     # Ensure this runs only once
     creates: ~/.config/ansible-flag-mysql-password-enabled
   notify: restart mysql
+  ignore_errors: yes
 
 # Copy MariaDB /etc/mysql/mariadb.conf.d/60-frappe.cnf
 - name: Copying /etc/mysql/mariadb.conf.d/60-frappe.cnf

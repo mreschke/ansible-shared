@@ -1,8 +1,0 @@
----
-# Authorize this key to this users ~/.ssh/authorized_keys file
-- name: Adding {{ authorize }} to {{ user }} user ~/.ssh/authorized_keys file
-  authorized_key:
-    user: '{{ user }}'
-    key: '{{ item }}'
-  with_file:
-    - 'keys/{{ authorize }}.key.pub'

@@ -1,0 +1,20 @@
+---
+- name: Adding users sudoers.d file
+  file:
+    path: '/etc/sudoers.d/{{ user }}'
+    state: touch
+    mode: "0640" #-rw-r-----
+  when: 'sudogroup in user_groups'
+
+- name: Setting user to nopasswd sudo access
+  lineinfile:
+    path: '/etc/sudoers.d/{{ user }}'
+    line: '{{ user }}  ALL=(ALL)  NOPASSWD:ALL'
+  #when: '"sudo" in group'
+  when: 'sudogroup in user_groups'
+
+- name: Ensuring sudo is disabled if no longer in sudo group
+  file:
+    path: /etc/sudoers.d/{{ user }}
+    state: absent
+  when: 'sudogroup not in user_groups'

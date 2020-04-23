@@ -1,0 +1,19 @@
+---
+# Create main user gruop
+- name: Creating group {{ user }}
+  group:
+    name: '{{ user }}'
+    gid: "{{ users[user]['gid'] }}"
+
+# Create user
+- name: Creating user {{ user }}
+  user:
+    name: '{{ user }}'
+    uid: "{{ users[user]['id'] }}"
+    comment: '{{ user }}'
+    group: '{{ user }}'
+    groups: '{{ user_groups }}'
+    password: "{{ users[user]['password'] }}"
+    update_password: always
+    create_home: "{{ create_home | default('yes') }}"
+    shell: "{{ shell | default('/bin/bash') }}"

@@ -1,0 +1,40 @@
+---
+# Create users ~/.ssh directory
+- name: Creating {{ user }} ~/.ssh directory
+  file:
+    path: '{{ "~" + user | expanduser }}/.ssh'
+    state: directory
+
+# Authorize users SSH keys
+# NOTE, when: ssh_authorize|bool == true
+# IS working, BUT even if ssh_authorize = false the
+# with_file: still errors if 'keys/{{ user }}.key.pub' does NOT exists
+# So you have to create at least a blank users/keys/user.key.pub file
+- name: Authorizing SSH keys for {{ user }}
+  authorized_key:
+    user: '{{ user }}'
+    key: '{{ item }}'
+  with_file:
+    - '{{ user_path }}/keys/{{ user }}.key.pub'
+  when: ssh_authorize|default(true)|bool
+
+# Create users public key
+- name: Copying {{ user }} SSH public key
+  copy:
+    src: '{{ user_path }}/keys/{{ user }}.key.pub'
+    #dest: '{{ user_home }}/.ssh/id_rsa.pub'
+    dest: '{{ "~" + user | expanduser }}/.ssh/id_rsa.pub'
+    owner: '{{ user }}'
+    group: '{{ user }}'
+    mode: 0644
+  when: ssh_keys|default(false)|bool
+
+# Create users private key
+- name: Copying {{ user }} SSH private key
+  copy:
+    src: '../vault/{{ user }}.key'
+    dest: '{{ "~" + user | expanduser }}/.ssh/id_rsa'
+    owner: '{{ user }}'
+    group: '{{ user }}'
+    mode: 0600
+  when: ssh_keys|default(false)|bool

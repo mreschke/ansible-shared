@@ -24,6 +24,11 @@ Quick helpers to remember common tasks
 
 
 ```yaml
+# Detect Manjaro
+- name: Configure Manjaro mirrorlist for linstore nginx proxy
+  include_tasks: manjaro.yml
+  when: ansible_os_family == "Archlinux" and ansible_lsb.id == "ManjaroLinux"
+
 # Copy profiles to /etc/profile.d/
 - include_tasks: ../../../functions/copy_etc-profile.d.yml
 

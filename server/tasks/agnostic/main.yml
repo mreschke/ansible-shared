@@ -33,6 +33,7 @@
     owner: root
     group: root
     state: link
+  when: ansible_os_family == "Debian"
 
 # Increase number of TCP connections per port (debian default 128)
 - name: Increasing number of TCP connections per port /etc/sysctl.conf net.core.somaxconn = 4096

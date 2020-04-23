@@ -6,6 +6,12 @@
   include_tasks: debian/main.yml
   when: ansible_os_family == "Debian"
 
+# Manjaro server
+# Run first to install base software required for agnostic/main.yml
+# ------------------------------------------------------------------------------
+- name: Configure Manjaro server
+  include_tasks: manjaro/main.yml
+  when: ansible_os_family == "Archlinux" and ansible_lsb.id == "ManjaroLinux"
 
 # Any server (OS agnostic)
 # ------------------------------------------------------------------------------

@@ -1,0 +1,49 @@
+---
+# ------------------------------------------------------------------------------
+# These tasks run for any Majaro server (physical or virtual)
+# ------------------------------------------------------------------------------
+
+# Change the games:x:50: group to staff
+- name: Ensuring group staff:50
+  replace:
+    path: /etc/group
+    regexp: '^games:x:50:'
+    replace: 'staff:x:50:'
+  #shell: groupmod --new-name staff games
+
+# Install common Manjaro applications
+- name: Installing common Manjaro applications
+  pacman:
+    update_cache: yes
+    state: present
+    name:
+      - sudo            # Give certain users the ability to run some commands as root
+      - openssh         # Premier connectivity tool for remote login with the SSH protocol
+      - nmap            # Utility for network discovery and security auditing
+      - htop            # Interactive process viewer
+      - iotop           # Display bandwidth usage on an interface
+      - iftop           # Network top to watch network usage
+      - iperf           # A tool to measure maximum TCP bandwidth
+      - ethtool         # Utility for controlling network drivers and hardware
+      - sysstat         # A collection of performance monitoring tools (iostat,isag,mpstat,pidstat,sadf,sar)
+      - vim             # Vi Improved, a highly configurable, improved version of the vi text editor
+      - nano            # Pico editor clone with enhancements
+      - rsync           # A file transfer program to keep remote files in sync
+      - curl            # An URL retrieval utility and library
+      - wget            # Network utility to retrieve files from the Web
+      - mlocate         # Merging locate/updatedb implementation
+      - ntp             # Network Time Protocol reference implementation
+      - tar             # Utility used to store, backup, and transport files
+      - zip             # Compressor/archiver for creating and modifying zipfiles
+      - unzip           # For extracting and viewing files in .zip archives
+      - bzip2           # A high-quality data compression program
+      - p7zip           # Command-line file archiver with high compression ratio
+      - gzip            # GNU compression utilit
+      - git             # The fast distributed version control system
+      - nfs-utils       # Support programs for Network File Systems
+      - cifs-utils      # CIFS filesystem user-space tools
+      - dos2unix        # Text file format converter
+      - acl             # Access control list utilities, libraries and headers
+      - bind-tools      # The ISC DNS tools (dig...)
+      - yay             # Yet another yogurt. Pacman wrapper and AUR helper written in go.
+      - base-devel      # Development tools (this is a package group, not a package)

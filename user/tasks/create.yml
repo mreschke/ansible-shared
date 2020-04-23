@@ -1,0 +1,46 @@
+---
+# Groups from group_vars/users.yml
+- set_fact:
+    user_groups: "{{ users[user]['groups'] }}"
+  when: (user_groups is undefined or user_groups == "") and users[user]['groups'] is defined
+
+# Using complete groups from playbook user line
+- set_fact:
+    user_groups: '{{ user_groups }}'
+  when: user_groups is defined and user_groups != ""
+
+# Appending groups to group_vars/users.yml
+- set_fact:
+    user_groups: "{{ users[user]['groups'] + add_groups }}"
+  when: add_groups is defined and add_groups != "" and users[user]['groups'] is defined
+
+# Add OS specific sudo group
+- set_fact:
+    user_groups: "{{ user_groups + [sudogroup] }}"
+  when: add_sudo|default(false)|bool
+
+# Set root groups
+- set_fact:
+    user_groups: [root]
+  when: user == 'root'
+
+# ------------------------------------------------------------------------------
+
+- include_tasks: debug.yml
+- include_tasks: user.yml
+- include_tasks: sudo.yml
+- include_tasks: ssh.yml
+
+# ------------------------------------------------------------------------------
+
+# Reset variable defaults for next run
+# No way to "unset" a variable, so set to "" and treat "" as undefined in the facts above
+- set_fact:
+    user_groups: ""
+    add_groups: ""
+    ssh_info: ""
+    add_sudo: no
+    create: yes
+    ssh_keys: yes
+    ssh_authorize: no
+

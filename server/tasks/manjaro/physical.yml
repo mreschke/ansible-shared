@@ -1,0 +1,17 @@
+---
+# ------------------------------------------------------------------------------
+# These tasks run for physical Manjaro servers
+# ------------------------------------------------------------------------------
+
+# Install physical Manjaro applications
+- name: Installing physical Manjaro server applications
+  pacman:
+    update_cache: yes
+    state: present
+    name:
+      - ifenslave       # Utility for bonding ethernet interfaces
+      - ethtool         # Utility for controlling network drivers and hardware
+      - bridge-utils    # Utilities for configuring the Linux ethernet bridge
+      - multipath-tools # Multipath tools for Linux (including kpartx)
+      - ntfs-3g         # NTFS filesystem driver and utilities
+      - smartmontools   # Control and monitor S.M.A.R.T. enabled ATA and SCSI Hard Drives

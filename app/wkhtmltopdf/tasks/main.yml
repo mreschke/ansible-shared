@@ -1,0 +1,7 @@
+---
+# Install wkhtmltopdf
+- name: Installing wkhtmltopdf
+  apt:
+    update_cache: yes
+    state: present
+    name: wkhtmltopdf
