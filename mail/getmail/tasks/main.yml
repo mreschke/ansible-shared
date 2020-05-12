@@ -1,7 +1,16 @@
 ---
-# Install getmail
-- name: Installing getmail
+# Install getmail for Debian 9
+- name: Installing getmail for Debian 9
   apt:
     update_cache: yes
     state: present
     name: getmail4
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+# Install getmail for Debian 10
+- name: Installing getmail for Debian 10
+  apt:
+    update_cache: yes
+    state: present
+    name: getmail
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"

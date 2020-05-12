@@ -1,0 +1,20 @@
+---
+# Pre output
+- debug:
+    msg: 'Pyenv about to install python {{ item }}'
+  with_items: '{{ python_versions }}'
+
+# Install python versions via pyenv
+- name: 'Installing Python version(s) via pyenv'
+  become_user: '{{ superuser }}'
+  shell: 'source /etc/profile.d/pyenv.sh && /usr/local/lib/pyenv/bin/pyenv install --skip-existing {{ item }}'
+  args:
+    executable: /bin/bash
+  with_items: '{{ python_versions }}'
+
+# Set pyenv global python versions
+- name: 'Setting pyenv global python versions'
+  become_user: '{{ superuser }}'
+  shell: 'source /etc/profile.d/pyenv.sh && /usr/local/lib/pyenv/bin/pyenv global {{ python_global_versions }}'
+  args:
+    executable: /bin/bash

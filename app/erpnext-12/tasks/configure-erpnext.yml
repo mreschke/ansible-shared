@@ -10,14 +10,14 @@
   file:
     path: '{{ base }}'
     state: directory
-    owner: toor
-    group: toor
+    owner: '{{ superuser }}'
+    group: '{{ superuser }}'
     mode: '0755'
 
 # Run frappe bench init
 - name: Running frappe bench init
-  # NOTICE: running as toor
-  become_user: toor
+  # NOTICE: running as superuser
+  become_user: '{{ superuser }}'
   shell: bench init {{ projectname }} --frappe-branch version-12 --no-backups
   args:
     chdir: '{{ base }}'
@@ -27,8 +27,8 @@
 
 # Run frappe bench init with custom repo
 - name: Running frappe bench init with custom repo
-  # NOTICE: running as toor
-  become_user: toor
+  # NOTICE: running as superuser
+  become_user: '{{ superuser }}'
   shell: bench init {{ projectname }} --frappe-path {{ frappe_repo }} --frappe-branch version-12 --no-backups
   args:
     chdir: '{{ base }}'
@@ -38,7 +38,7 @@
 
 # Create frappe-bench supervisor configs
 - name: Creating frappe-bench supervisor config
-  become_user: toor
+  become_user: '{{ superuser }}'
   shell: bench setup supervisor
   args:
     chdir: '{{ path }}'
@@ -54,7 +54,7 @@
 
 # Get ERPNext app
 - name: Getting ERPNext app
-  become_user: toor
+  become_user: '{{ superuser }}'
   shell: bench get-app erpnext --branch version-12
   args:
     chdir: '{{ path }}'
@@ -64,7 +64,7 @@
 
 # Get ERPNext app from custom repo
 - name: Getting ERPNext app from custom repo
-  become_user: toor
+  become_user: '{{ superuser }}'
   shell: bench get-app erpnext {{ erpnext_repo }} --branch version-12
   args:
     chdir: '{{ path }}'
@@ -74,7 +74,7 @@
 
 # Settings frappe bench mariadb-host
 - name: Setting frappe bench mariadb-host
-  become_user: toor
+  become_user: '{{ superuser }}'
   shell: bench set-mariadb-host {{ db_host }}
   args:
     chdir: '{{ path }}'
@@ -82,7 +82,7 @@
 
 # Create new site using local database
 - name: Creating new frappe site using local database
-  become_user: toor
+  become_user: '{{ superuser }}'
   shell: bench new-site {{ site }} --admin-password {{ erpnext_admin_password }} --db-name {{ db_name }} --db-password {{ erpnext_db_password }} --mariadb-root-username root --mariadb-root-password {{ root_db_password }} --force
   args:
     chdir: '{{ path }}'
@@ -92,7 +92,7 @@
 
 # Create new site using remote database
 - name: Creating new frappe site using remote database
-  become_user: toor
+  become_user: '{{ superuser }}'
   shell: bench new-site {{ site }} --admin-password {{ erpnext_admin_password }} --db-name {{ db_name }} --db-password {{ erpnext_db_password }} --mariadb-root-username root --mariadb-root-password {{ root_db_password }} --force --no-mariadb-socket
   args:
     chdir: '{{ path }}'
@@ -102,7 +102,7 @@
 
 # Adding ERPNext to site
 - name: Adding ERPNext to site
-  become_user: toor
+  become_user: '{{ superuser }}'
   shell: bench --site {{ site }} install-app erpnext
   args:
     chdir: '{{ path }}'
@@ -111,7 +111,7 @@
 
 # Create frappe-bench nginx configs
 - name: Creating frappe-bench nginx config
-  become_user: toor
+  become_user: '{{ superuser }}'
   shell: bench setup nginx
   args:
     chdir: '{{ path }}'

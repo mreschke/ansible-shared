@@ -6,5 +6,5 @@
     dest: "/etc/redis/redis.conf"
     owner: root
     group: root
-    mode: 0644 # -rw-r--r--
+    mode: '0644' # -rw-r--r--
   notify: restart redis # Only runs if file changed!

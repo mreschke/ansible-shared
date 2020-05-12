@@ -13,8 +13,8 @@
   file:
     path: /var/www
     state: directory
-    owner: toor
-    group: toor
+    owner: '{{ superuser }}'
+    group: '{{ superuser }}'
     mode: '0755'
 
 # Create /var/www/konga folder
@@ -22,14 +22,14 @@
   file:
     path: /var/www/konga
     state: directory
-    owner: toor
-    group: toor
+    owner: '{{ superuser }}'
+    group: '{{ superuser }}'
     mode: '0755'
 
 # Git clone https://github.com/pantsel/konga.git
 - name: Git clone https://github.com/pantsel/konga.git tag 0.14.7
-  # NOTICE: running as toor
-  become_user: toor
+  # NOTICE: running as superuser
+  become_user: '{{ superuser }}'
   git:
     clone: yes
     force: yes
@@ -38,13 +38,13 @@
     version: 0.14.7
     depth: 1
 
-# Ensure konga git contents owned by toor
-- name: Ensuring konga git contents owned by toor
+# Ensure konga git contents owned by superuser
+- name: Ensuring konga git contents owned by superuser
   file:
     path: /var/www/konga
     state: directory
-    owner: toor
-    group: toor
+    owner: '{{ superuser }}'
+    group: '{{ superuser }}'
     recurse: yes
 
 # Delete package-lock.json
@@ -55,31 +55,31 @@
 
 # Install konga npm packages
 - name: Installing konga NPM packages
-  # NOTICE: running as toor
-  become_user: toor
+  # NOTICE: running as superuser
+  become_user: '{{ superuser }}'
   npm:
     path: /var/www/konga
 
 # Install konga bower dependencies
 - name: Installing konga bower dependencies
-  # NOTICE: running as toor
-  become_user: toor
+  # NOTICE: running as superuser
+  become_user: '{{ superuser }}'
   shell: npm run bower-deps
   args:
     chdir: /var/www/konga
 
-# Ensure konga git contents owned by toor
-- name: Ensuring konga git contents owned by toor
+# Ensure konga git contents owned by superuser
+- name: Ensuring konga git contents owned by superuser
   file:
     path: /var/www/konga
     state: directory
-    owner: toor
-    group: toor
+    owner: '{{ superuser }}'
+    group: '{{ superuser }}'
     recurse: yes
 
 # Copy konga systemd unit file
 - name: Copying konga.service systemd unit file
-  copy:
+  template:
     src: konga.service
     dest: "/etc/systemd/system/konga.service"
     owner: root

@@ -13,7 +13,7 @@
     dest: /etc/rsyslog.conf
     owner: root
     group: root
-    mode: 0644 # -rw-r--r--
+    mode: '0644' # -rw-r--r--
   notify: restart rsyslog
 
 # Copy /etc/rsyslog.d/49-haproxy.conf
@@ -24,16 +24,8 @@
     dest: /etc/rsyslog.d/49-haproxy.conf
     owner: root
     group: root
-    mode: 0644 # -rw-r--r--
+    mode: '0644' # -rw-r--r--
   notify: restart rsyslog
 
 # Copy scripts to /usr/local/bin
-- name: Copying scripts to /usr/local/bin
-  copy:
-    src: "{{ item }}"
-    dest: /usr/local/bin/
-    owner: toor
-    group: staff
-    mode: 0775
-  with_fileglob:
-    - bin/*
+- include_tasks: ../../../functions/copy_usr-local-bin.yml

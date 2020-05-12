@@ -6,7 +6,7 @@
     dest: "/etc/mysql/mariadb.conf.d/50-server.cnf"
     owner: root
     group: root
-    mode: 0644 #-rw-r--r--
+    mode: '0644' #-rw-r--r--
   notify: restart mariadb # Only runs if file changed!
 
 # Set MySQL options defined in OpenNebula docs

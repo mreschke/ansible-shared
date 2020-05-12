@@ -7,5 +7,4 @@
       - "ID: {{ users[user]['id'] }}"
       - "GID: {{ users[user]['gid'] }}"
       - "Groups: {{ user_groups }}"
-      - "Password: {{ users[user]['password'] }}"
-      #- "{{ network['netmask'] }}"
+      #- "Password: {{ users[user]['password'] }}"

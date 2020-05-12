@@ -17,5 +17,5 @@
     dest: /etc/opt/jfrog/artifactory/default
     owner: artifactory
     group: artifactory
-    mode: 0644
+    mode: '0644'
   notify: restart artifactory

@@ -1,10 +1,24 @@
 # Copy profiles to /etc/profile.d/
+# Templates messes up a lot of back scripts (errors on odd chars)
+# So copy all files/bin/* using COPY
 - name: Copying profiles to /etc/profile.d
   copy:
     src: "{{ item }}"
     dest: /etc/profile.d/
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   with_fileglob:
-    - profile.d/*
+    - files/profile.d/*
+
+# Template and copy profiles to /etc/profile.d/
+# Careful here, as some script can mess up the template system (jinja2)
+- name: Copy templated profiles to /etc/profile.d/
+  template:
+    src: "{{ item }}"
+    dest: /etc/profile.d/
+    owner: root
+    group: root
+    mode: '0755'
+  with_fileglob:
+    - templates/profile.d/*

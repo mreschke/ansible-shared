@@ -38,7 +38,7 @@
     dest: '/var/lib/one/.ssh/config'
     owner: 'oneadmin'
     group: 'oneadmin'
-    mode: 0644
+    mode: '0644'
 
 # Authorize oneadmin user to SSH into itself
 - name: Authorizing SSH keys for oneadmin
@@ -55,7 +55,7 @@
     dest: '/var/lib/one/.ssh/id_rsa.pub'
     owner: 'oneadmin'
     group: 'oneadmin'
-    mode: 0644
+    mode: '0644'
 
 # Create oneadmin private key
 - name: Copying oneadmin SSH private key
@@ -64,7 +64,7 @@
     dest: '/var/lib/one/.ssh/id_rsa'
     owner: 'oneadmin'
     group: 'oneadmin'
-    mode: 0600
+    mode: '0600'
 
 # Copy libvirt.conf
 - name: Copying /etc/libvirt/libvirt.conf
@@ -73,19 +73,11 @@
     dest: /etc/libvirt/libvirt.conf
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   notify: restart libvirtd # Only runs if file changed!
 
 # Copy scripts to /usr/local/bin
-- name: Copying scripts to /usr/local/bin
-  template:
-    src: "{{ item }}"
-    dest: /usr/local/bin/
-    owner: toor
-    group: staff
-    mode: 0755
-  with_fileglob:
-    - files/bin/*
+- include_tasks: ../../../functions/copy_usr-local-bin.yml
 
 # Schedule cron
 - name: Scheduling cron cron-root-daily-12am

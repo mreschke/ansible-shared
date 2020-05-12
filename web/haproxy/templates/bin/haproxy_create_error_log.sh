@@ -22,4 +22,4 @@ cat $log_src \
 	> $log_dest
 
 
-chown toor:toor $log_dest
+chown {{ superuser }}:{{ superuser }} $log_dest

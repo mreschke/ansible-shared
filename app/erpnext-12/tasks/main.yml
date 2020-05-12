@@ -1,9 +1,9 @@
 ---
 # NOTICE: Commands like frappe bench and git clone need to run
-# as the toor user, not root.  The playbook that runs this role
-# should be logging in as toor, using become:yes with toors ssh key
+# as the superuser user, not root.  The playbook that runs this role
+# should be logging in as superuser, using become:yes with superusers ssh key
 # Because become:yes all command still run as root, until I use
-# become_user: toor below.
+# become_user: superuser below.
 
 - include_tasks: configure-linux.yml
 - include_tasks: configure-mysql.yml

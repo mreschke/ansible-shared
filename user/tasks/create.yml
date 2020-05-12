@@ -41,6 +41,6 @@
     ssh_info: ""
     add_sudo: no
     create: yes
-    ssh_keys: yes
-    ssh_authorize: no
+    ssh_keys: no
+    ssh_authorize: yes
 

@@ -10,7 +10,7 @@
     dest: "/etc/one/oned.conf"
     owner: root
     group: root
-    mode: 0644 #-rw-r--r--
+    mode: '0644' #-rw-r--r--
   notify: restart opennebula
 
 # Override sunstone CSS
@@ -20,7 +20,7 @@
     dest: '/usr/lib/one/sunstone/public/css/custom.css'
     owner: 'oneadmin'
     group: 'oneadmin'
-    mode: 0644
+    mode: '0644'
   notify: restart sunstone
 
 # Set oneadmin password (not linux password, but OpenNebula software password)
@@ -45,7 +45,7 @@
     dest: '/var/lib/one/.ssh/config'
     owner: 'oneadmin'
     group: 'oneadmin'
-    mode: 0644
+    mode: '0644'
 
 # Authorize oneadmin user to SSH into itself
 - name: Authorizing SSH keys for oneadmin
@@ -62,7 +62,7 @@
     dest: '/var/lib/one/.ssh/id_rsa.pub'
     owner: 'oneadmin'
     group: 'oneadmin'
-    mode: 0644
+    mode: '0644'
 
 # Create oneadmin private key
 - name: Copying oneadmin SSH private key
@@ -71,4 +71,4 @@
     dest: '/var/lib/one/.ssh/id_rsa'
     owner: 'oneadmin'
     group: 'oneadmin'
-    mode: 0600
+    mode: '0600'

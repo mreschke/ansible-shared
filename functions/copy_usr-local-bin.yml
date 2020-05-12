@@ -1,10 +1,24 @@
 # Copy scripts to /usr/local/bin
+# Templates messes up a lot of back scripts (errors on odd chars)
+# So copy all files/bin/* using COPY
 - name: Copying scripts to /usr/local/bin
   copy:
     src: "{{ item }}"
     dest: /usr/local/bin/
-    owner: toor
-    group: staff
-    mode: 0775
+    owner: '{{ superuser }}'
+    group: '{{ supergroup }}'
+    mode: '0775'
   with_fileglob:
-    - bin/*
+    - files/bin/*
+
+# Template and copy scripts to /usr/local/bin
+# Careful here, as some script can mess up the template system (jinja2)
+- name: Copy templated scripts to /usr/local/bin
+  template:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: '{{ superuser }}'
+    group: '{{ supergroup }}'
+    mode: '0775'
+  with_fileglob:
+    - templates/bin/*

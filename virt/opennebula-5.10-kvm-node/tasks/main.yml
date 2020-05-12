@@ -27,7 +27,7 @@
     dest: '/etc/libvirt/libvirtd.conf'
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   notify: restart libvirtd
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
 
@@ -38,7 +38,7 @@
     dest: '/etc/libvirt/libvirtd.conf'
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   notify: restart libvirtd
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
 
@@ -76,4 +76,4 @@
     dest: '/var/lib/one/.ssh/config'
     owner: 'oneadmin'
     group: 'oneadmin'
-    mode: 0644
+    mode: '0644'

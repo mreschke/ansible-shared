@@ -12,8 +12,4 @@ if command -v pyenv 1>/dev/null 2>&1; then
         eval "$(pyenv init -)"
 fi
 
-
-# Python aliases
-alias pv='echo "Version:" && python --version && echo && echo "Interpreter Path:" && python -c "import sys;print(sys.prefix)" && echo && echo "Paths:" && python -c "import sys;print(sys.path);"'
-alias activate='source env/bin/activate && pv'
-alias pips='pipenv shell && echo "pipenv shell has been deactivated" && echo && pv'
+# Python aliases for pv, activate and pips should already be defined in shared/server

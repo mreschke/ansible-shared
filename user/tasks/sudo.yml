@@ -3,7 +3,7 @@
   file:
     path: '/etc/sudoers.d/{{ user }}'
     state: touch
-    mode: "0640" #-rw-r-----
+    mode: '0640'
   when: 'sudogroup in user_groups'
 
 - name: Setting user to nopasswd sudo access

@@ -7,7 +7,7 @@
 # mReschke 2019-04-19
 
 path=/usr/local/lib/pyenv
-chown toor:staff $path -R
+chown {{ superuser }}:{{ supergroup }} $path -R
 chmod 2775 $path
 find $path -type d -exec chmod 2775 {} \;
 setfacl -R -d -m user::rwx,group::rwx $path

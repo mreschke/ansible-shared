@@ -6,7 +6,7 @@
     dest: /etc/mysql/mysql.conf.d/mysqld.cnf
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   notify: restart mysql # Only reloads if file has changed!
 
 # Create the confluence MySQL database

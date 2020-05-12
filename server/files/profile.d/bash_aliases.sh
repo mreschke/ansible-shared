@@ -43,3 +43,13 @@ alias rm='rm -Irv'
 # What is my external IP address
 alias whatismyip='curl -s http://icanhazip.com/'
 
+# Python
+alias pv='echo "Version:" && python --version && echo && echo "Interpreter Path:" && python -c "import sys;print(sys.prefix)" && echo && echo "Paths:" && python -c "import sys;print(sys.path);"'
+alias activate='source env/bin/activate && pv'
+alias pips='pipenv shell && echo "pipenv shell has been deactivated" && echo && pv'
+
+# Docker
+alias dps="docker ps"
+alias dpsa="docker ps -a"
+alias dimg="docker images"
+alias dimga="docker images -a"

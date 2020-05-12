@@ -1,9 +1,9 @@
 ---
-# Copy ssh client config for toor user so we can git clone without confirmation
-- name: Copying toor SSH client config
+# Copy ssh client config for superuser user so we can git clone without confirmation
+- name: Copying superuser SSH client config
   copy:
     src: 'ssh.config'
-    dest: '/home/toor/.ssh/config'
-    owner: toor
-    group: toor
+    dest: '/home/{{ superuser }}/.ssh/config'
+    owner: '{{ superuser }}'
+    group: '{{ superuser }}'
     mode: '0644'

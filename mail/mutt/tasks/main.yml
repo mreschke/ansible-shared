@@ -1,0 +1,8 @@
+---
+# Install mutt email client
+- name: Installing mutt email client
+  apt:
+    update_cache: yes
+    state: present
+    name: mutt
+

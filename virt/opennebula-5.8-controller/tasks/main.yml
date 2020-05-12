@@ -60,4 +60,4 @@
     dest: '/var/lib/one/.ssh/config'
     owner: 'oneadmin'
     group: 'oneadmin'
-    mode: 0644
+    mode: '0644'

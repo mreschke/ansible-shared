@@ -6,7 +6,7 @@
     dest: "/etc/mysql/percona-server.conf.d/mysqld.cnf"
     owner: root
     group: root
-    mode: 0644 #-rw-r--r--
+    mode: '0644' #-rw-r--r--
   notify: restart mysql # Only runs if file changed!
 
 # Create the servicedesk MySQL database
