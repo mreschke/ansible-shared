@@ -34,6 +34,10 @@
 - include_tasks: authorize.yml
   when: ssh_into is defined and ssh_info != ""
 
+# Debian modifications per user
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
 # Manjaro modifications per user
 - include_tasks: manjaro.yml
   when: ansible_os_family == "Archlinux" and ansible_lsb.id == "ManjaroLinux"

@@ -1,6 +1,6 @@
 ---
 # Create users ~/.ssh directory
-- name: Creating {{ user }} ~/.ssh directoryxx
+- name: Creating {{ user }} ~/.ssh directory
   file:
     path: '{{ "~" + user | expanduser }}/.ssh'
     state: directory

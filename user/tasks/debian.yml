@@ -1,0 +1,21 @@
+---
+# Comment out ~/.bashrc HIST stuff
+# So it obeys /etc/profile.d/bash_history.sh instead
+- name: Commenting out ~/.bashrc HIST stuff
+  lineinfile:
+    path: '{{ "~" + user | expanduser }}/.bashrc'
+    regexp: '^HISTCONTROL=ignoreboth'
+    line: '# HISTCONTROL=ignoreboth'
+- lineinfile:
+    path: '{{ "~" + user | expanduser }}/.bashrc'
+    regexp: '^HISTSIZE=1000'
+    line: '# HISTSIZE=1000'
+- lineinfile:
+    path: '{{ "~" + user | expanduser }}/.bashrc'
+    regexp: '^HISTFILESIZE=2000'
+    line: '# HISTFILESIZE=2000'
+
+# Debian has these by default in ~/.bashrc
+#HISTCONTROL=ignoreboth
+#HISTSIZE=1000
+#HISTFILESIZE=2000
