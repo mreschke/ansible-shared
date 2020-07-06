@@ -88,6 +88,17 @@ when: ansible_os_family == "Archlinux" and ansible_lsb.id == "ManjaroLinux"
 # Copy scripts to /usr/local/bin
 - include_tasks: ../../../functions/copy_usr-local-bin.yml
 
+# Copy globs
+- name: Copying globs
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: '{{ superuser }}'
+    group: '{{ supergroup }}'
+    mode: '0775'
+  with_fileglob:
+    - files/bin/*
+
 # Copy nginx.conf
 - name: Copying /etc/nginx/nginx.conf
   copy:
