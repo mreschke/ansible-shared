@@ -8,7 +8,8 @@ export HISTFILESIZE=
 export HISTCONTROL=ignoreboth
 
 # Ignore commands
-export HISTIGNORE="ls:dir:exit:sudo ls -Hhal"
+# No, becuase then I can press up to run my last dir or ls command
+#export HISTIGNORE="ls:dir:exit:sudo ls -Hhal"
 
 # Time only shows up in 'history' command, and uses comments in actual ~/.bash_history file
 # NO, default is fine...export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
