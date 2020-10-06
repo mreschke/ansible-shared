@@ -11,6 +11,11 @@
   apt_repository: repo='deb https://packages.gitlab.com/gitlab/gitlab-ee/debian/ stretch main' state=present
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
 
+# Add Gitlab repositories - Debian 10 Stretch
+- name: Adding Gitlab sources for Debian 10 Buster
+  apt_repository: repo='deb https://packages.gitlab.com/gitlab/gitlab-ee/debian/ buster main' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
+
 # Install Gitlab
 # CE vs EE see https://about.gitlab.com/install/ce-or-ee/?distro=debian
 - name: Installing Gitlab
