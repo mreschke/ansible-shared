@@ -18,6 +18,11 @@
   apt_repository: repo='deb https://packages.sury.org/php/ stretch main' state=present
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
 
+# Add sury.org PHP repositories - Debian 10 Buster
+- name: Adding sury.org PHP sources for Debian 10 Buster
+  apt_repository: repo='deb https://packages.sury.org/php/ buster main' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
+
 # Install PHP 7.2
 - name: Installing PHP 7.2
   apt:

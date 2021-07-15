@@ -1,0 +1,7 @@
+---
+- name: restart konga
+  systemd:
+    name: konga.service
+    daemon_reload: yes
+    enabled: yes
+    state: restarted

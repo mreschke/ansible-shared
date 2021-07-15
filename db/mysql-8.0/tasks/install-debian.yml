@@ -12,18 +12,18 @@
 - name: Addding MySQL sources GPG key
   apt_key: keyserver=pool.sks-keyservers.net id=5072E1F5 state=present
 
-# Add MySQL repositories for Debian 8
-- name: Adding MySQL sources for Debian 8 Jessie
-  apt_repository: repo='deb http://repo.mysql.com/apt/debian/ jessie mysql-5.7' state=present
-  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "8"
-
 # Add MySQL repositories for Debian 9
 - name: Adding MySQL sources for Debian 9 Jessie
-  apt_repository: repo='deb http://repo.mysql.com/apt/debian/ stretch mysql-5.7' state=present
+  apt_repository: repo='deb http://repo.mysql.com/apt/debian/ stretch mysql-8.0' state=present
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
 
-# Install MySQL 5.7
-- name: Installing MySQL 5.7
+# Add MySQL repositories for Debian 10
+- name: Adding MySQL sources for Debian 10 Buster
+  apt_repository: repo='deb http://repo.mysql.com/apt/debian/ buster mysql-8.0' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
+
+# Install MySQL 8.0
+- name: Installing MySQL 8.0
   apt:
     update_cache: yes
     state: present

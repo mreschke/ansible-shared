@@ -1,0 +1,6 @@
+---
+# Oracle MySQL 8.0
+
+# Install Oracle MySQL 8.0 - Debian All Versions
+- include_tasks: install-debian.yml
+  when: ansible_os_family == "Debian"

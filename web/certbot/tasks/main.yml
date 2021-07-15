@@ -4,4 +4,6 @@
   apt:
     update_cache: yes
     state: present
-    name: certbot
+    name:
+      - certbot
+      - python-certbot-nginx

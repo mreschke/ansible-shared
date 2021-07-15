@@ -47,6 +47,7 @@ alias whatismyip='curl -s http://icanhazip.com/'
 alias pv='echo "Version:" && python --version && echo && echo "Interpreter Path:" && python -c "import sys;print(sys.prefix)" && echo && echo "Paths:" && python -c "import sys;print(sys.path);"'
 alias activate='source env/bin/activate && pv'
 alias pips='pipenv shell && echo "pipenv shell has been deactivated" && echo && pv'
+alias pops='poetry shell && echo "poetry shell has been deactivated" && echo && pv'
 
 # Docker
 alias dps="docker ps"

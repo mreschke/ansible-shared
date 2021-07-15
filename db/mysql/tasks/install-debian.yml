@@ -1,0 +1,10 @@
+---
+# Plain debian mysql-server (which could be a metapackage for mariadb)
+
+- name: Installing MySQL
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - mysql-server
+      - python-mysqldb  # Required for ansible to createdb or createuser

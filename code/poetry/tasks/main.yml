@@ -1,0 +1,30 @@
+---
+# Copy profiles to /etc/profile.d/
+- include_tasks: ../../../functions/copy_etc-profile.d.yml
+
+# Create directory
+- name: Create /etc/poetry directory
+  file:
+    path: /etc/poetry
+    state: directory
+    owner: '{{ superuser }}'
+    group: '{{ superuser }}'
+    mode: '0755'
+
+# Install poetry
+- name: Installing python poetry
+  command: "{{item}}"
+  with_items:
+    - curl -sL -o get-poetry.py https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py
+    - python get-poetry.py -y
+  environment:
+    POETRY_HOME: /etc/poetry
+  args:
+    chdir: /tmp
+    creates: /etc/poetry
+
+# Set permissions
+- name: Applying permissions of /etc/poetry/bin/poetry
+  file:
+    path: /etc/poetry/bin/poetry
+    mode: '0755'

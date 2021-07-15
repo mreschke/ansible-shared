@@ -23,29 +23,28 @@
   apt_repository: repo='deb https://packages.sury.org/php/ buster main' state=present
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
 
-# Install PHP 7.1
-- name: Installing PHP 7.1
+# Install PHP 7.4
+- name: Installing PHP 7.4
   apt:
     update_cache: yes
     state: present
     name:
-      - php7.1-bcmath
-      - php7.1-bz2
-      - php7.1-cli
-      - php7.1-common
-      - php7.1-curl
-      - php7.1-fpm
-      - php7.1-gd
-      - php7.1-imap
-      - php7.1-intl
-      - php7.1-json
-      - php7.1-ldap
-      - php7.1-mbstring
-      - php7.1-mcrypt
-      - php7.1-mysql
-      - php7.1-opcache
-      - php7.1-readline
-      - php7.1-soap
-      - php7.1-sybase
-      - php7.1-xml
-      - php7.1-zip
+      - php7.4-bcmath
+      - php7.4-bz2
+      - php7.4-cli
+      - php7.4-common
+      - php7.4-curl
+      - php7.4-fpm
+      - php7.4-gd
+      - php7.4-imap
+      - php7.4-intl
+      - php7.4-json
+      - php7.4-ldap
+      - php7.4-mbstring
+      - php7.4-mysql
+      - php7.4-opcache
+      - php7.4-readline
+      - php7.4-soap
+      - php7.4-sybase
+      - php7.4-xml
+      - php7.4-zip

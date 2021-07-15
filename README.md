@@ -138,7 +138,7 @@ when: ansible_os_family == "Archlinux" and ansible_lsb.id == "ManjaroLinux"
       - apt-transport-https
       - openssh-server
 
-# Creat directory /etc/nginx
+# Create directory /etc/nginx
 - name: Create a directory if it does not exist
   file:
     path: /etc/nginx
@@ -155,5 +155,11 @@ when: ansible_os_family == "Archlinux" and ansible_lsb.id == "ManjaroLinux"
     recurse: yes
     owner: '{{ superuser }}'
     group: '{{ superuser }}'
+
+# Set permissions
+- name: Applying permissions of /etc/poetry/bin/poetry
+  file:
+    path: /etc/poetry/bin/poetry
+    mode: '0755'
 
 ```
