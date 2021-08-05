@@ -1,0 +1,27 @@
+---
+# Install gnupg2 required for apt_key
+- name: Installing gnupg2
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - gnupg2
+
+# Add GPG keys
+- name: Addding jitsi GPG key
+  apt_key: url='https://download.jitsi.org/jitsi-key.gpg.key' state=present
+
+# Add jitsi repositories
+- name: Adding jitsi sources for Debian
+  apt_repository: repo='deb https://download.jitsi.org stable/' state=present
+  when: ansible_os_family == "Debian"
+
+# Install Jitsi Server
+# Later, fix with https://community.jitsi.org/t/silent-installation/55519
+# NO, because this has a manual interfention popup
+# NO - name: Installing Jitsi Server
+# NO   apt:
+# NO     update_cache: yes
+# NO     state: present
+# NO     name:
+# NO       - jitsi-meet
