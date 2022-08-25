@@ -7,4 +7,5 @@
       - "ID: {{ users[user]['id'] }}"
       - "GID: {{ users[user]['gid'] }}"
       - "Groups: {{ user_groups }}"
+      - "Home: {{ home }}"
       #- "Password: {{ users[user]['password'] }}"

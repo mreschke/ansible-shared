@@ -15,5 +15,6 @@
     groups: '{{ user_groups }}'
     password: "{{ users[user]['password'] }}"
     update_password: always
+    home: "{{ home }}"
     create_home: "{{ create_home | default('yes') }}"
     shell: "{{ shell | default('/bin/bash') }}"

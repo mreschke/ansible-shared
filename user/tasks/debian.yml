@@ -1,4 +1,9 @@
 ---
+- name: Check if ~/.bashrc exists
+  stat:
+    path: '{{ "~" + user | expanduser }}/.bashrc'
+  register: bashrc
+
 # Comment out ~/.bashrc HIST stuff
 # So it obeys /etc/profile.d/bash_history.sh instead
 - name: Commenting out ~/.bashrc HIST stuff
@@ -6,14 +11,21 @@
     path: '{{ "~" + user | expanduser }}/.bashrc'
     regexp: '^HISTCONTROL=ignoreboth'
     line: '# HISTCONTROL=ignoreboth'
-- lineinfile:
+  when: bashrc.stat.exists == true
+
+- name: Commenting out ~/.bashrc HIST stuff
+  lineinfile:
     path: '{{ "~" + user | expanduser }}/.bashrc'
     regexp: '^HISTSIZE=1000'
     line: '# HISTSIZE=1000'
-- lineinfile:
+  when: bashrc.stat.exists == true
+
+- name: Commenting out ~/.bashrc HIST stuff
+  lineinfile:
     path: '{{ "~" + user | expanduser }}/.bashrc'
     regexp: '^HISTFILESIZE=2000'
     line: '# HISTFILESIZE=2000'
+  when: bashrc.stat.exists == true
 
 # Debian has these by default in ~/.bashrc
 #HISTCONTROL=ignoreboth

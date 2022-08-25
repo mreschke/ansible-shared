@@ -9,11 +9,20 @@
       - gnupg2
       - software-properties-common
 
-- name: Addding Docker apt repository key
+- name: Addding Debian Docker apt repository key
   apt_key: url='https://download.docker.com/linux/debian/gpg' state=present
 
-- name: Adding Docker apt repository sources
+- name: Adding Debian 9 Docker apt repository sources
   apt_repository: repo='deb [arch=amd64] https://download.docker.com/linux/debian stretch stable' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "9"
+
+- name: Adding Debian 10 Docker apt repository sources
+  apt_repository: repo='deb [arch=amd64] https://download.docker.com/linux/debian buster stable' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "10"
+
+- name: Adding Debian 11 Docker apt repository sources
+  apt_repository: repo='deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable' state=present
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version == "11"
 
 - name: Installing Docker
   apt:
@@ -21,4 +30,6 @@
     state: present
     name:
       - docker-ce
+      - docker-ce-cli
+      - containerd.io
       - docker-compose

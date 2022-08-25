@@ -52,5 +52,6 @@ alias pops='poetry shell && echo "poetry shell has been deactivated" && echo && 
 # Docker
 alias dps="docker ps"
 alias dpsa="docker ps -a"
+alias dnet="docker network ls"
 alias dimg="docker images"
 alias dimga="docker images -a"

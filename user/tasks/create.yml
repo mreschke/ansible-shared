@@ -24,6 +24,11 @@
     user_groups: [root]
   when: user == 'root'
 
+# Home directory, use /home/username if undefined
+# - set_fact:
+#     home: "/home/{{ user }}"
+#   when: (home is undefined or home == "")
+
 # ------------------------------------------------------------------------------
 
 - include_tasks: debug.yml
@@ -39,6 +44,7 @@
     user_groups: ""
     add_groups: ""
     ssh_info: ""
+    home: ""
     add_sudo: no
     create: yes
     ssh_keys: no

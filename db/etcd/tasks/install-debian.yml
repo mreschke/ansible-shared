@@ -1,0 +1,9 @@
+---
+
+# Install etcd
+- name: Installing etcd
+  apt:
+    update_cache: yes
+    state: present
+    name:
+      - etcd

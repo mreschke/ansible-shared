@@ -4,7 +4,8 @@
 # ------------------------------------------------------------------------------
 
 # Configure /etc/pacman.conf
-- lineinfile: path=/etc/pacman.conf regexp='^#Color' line='Color'
+- name: Enabling pacman colors
+  lineinfile: path=/etc/pacman.conf regexp='^#Color' line='Color'
 
 # Change the games:x:50: group to staff
 - name: Ensuring group staff:50
